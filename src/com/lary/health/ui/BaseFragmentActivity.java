@@ -1,5 +1,9 @@
 package com.lary.health.ui;
 
+import com.lary.health.service.event.IEvent;
+
+import de.greenrobot.event.EventBus;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -12,7 +16,6 @@ import android.support.v4.app.FragmentActivity;
 public abstract class BaseFragmentActivity extends FragmentActivity{
      @Override
     protected void onCreate(Bundle arg0) {
-    	// TODO Auto-generated method stub
     	super.onCreate(arg0);
     	initBaseData();
     	initData();
@@ -21,7 +24,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity{
     }
     
      private void initBaseData(){
-    	 
+    	 EventBus.getDefault().register(this);
      }
      
      protected abstract void initData();
@@ -29,4 +32,16 @@ public abstract class BaseFragmentActivity extends FragmentActivity{
      protected abstract void initView();
      
      protected abstract void initWidgetAciotns();
+     
+     
+     public void onEvent(IEvent event){
+    	 
+     }
+     
+     @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	EventBus.getDefault().unregister(this);
+    }
+     
 }
