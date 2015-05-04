@@ -1,24 +1,14 @@
 package com.lary.health.ui;
 
-import java.util.HashMap;
-import java.util.Map;
-import netlib.net.volley.VolleyErrorUtil;
 import netlib.net.volley.VolleyPostRequest;
 import netlib.net.volley.VolleyUtil;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import netlib.model.BaseModel;
-import netlib.net.volley.VolleyErrorUtil;
-import netlib.net.volley.VolleyPostRequest;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
 import com.lary.health.R;
-import com.lary.health.R.layout;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
@@ -26,10 +16,7 @@ import com.lary.health.ui.widget.HomeViewPager;
 
 import de.greenrobot.event.EventBus;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
