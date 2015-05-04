@@ -9,7 +9,7 @@
         android:id="@+id/btn_net"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试网络,尼玛"/>
+        android:text="测试网络,亚鹏"/>
     
       <Button 
         android:id="@+id/btn_event"
