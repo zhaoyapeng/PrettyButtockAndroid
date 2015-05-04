@@ -1,16 +1,40 @@
 package com.lary.health.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+import netlib.net.volley.VolleyErrorUtil;
+import netlib.net.volley.VolleyPostRequest;
+import netlib.net.volley.VolleyUtil;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.VolleyError;
+import netlib.model.BaseModel;
+import netlib.net.volley.VolleyErrorUtil;
+import netlib.net.volley.VolleyPostRequest;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.lary.health.R;
 import com.lary.health.R.layout;
+import com.lary.health.service.event.IEvent;
+import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
 
+import de.greenrobot.event.EventBus;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class HomeActivity extends BaseFragmentActivity {
 	private HomeViewPager homeViewPager;
@@ -22,6 +46,8 @@ public class HomeActivity extends BaseFragmentActivity {
 	private final static int TYPE_CIRCLE = 1;
 	private final static int TYPE_SHOP = 2;
 	private final static int TYPE_PERSION = 3;
+
+	private Button ceshiNet, ceshiEvent;
 
 	@Override
 	protected void initData() {
@@ -36,6 +62,9 @@ public class HomeActivity extends BaseFragmentActivity {
 		circleBtn = (RadioButton) findViewById(R.id.btn_circle);
 		shopBtn = (RadioButton) findViewById(R.id.btn_shop);
 		persionBtn = (RadioButton) findViewById(R.id.btn_persion);
+
+		ceshiNet = (Button) findViewById(R.id.btn_net);
+		ceshiEvent = (Button) findViewById(R.id.btn_event);
 	}
 
 	@Override
@@ -48,7 +77,7 @@ public class HomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				homeViewPager.setCurrentItem(TYPE_HOME,false);
+				homeViewPager.setCurrentItem(TYPE_HOME, false);
 			}
 		});
 
@@ -56,7 +85,7 @@ public class HomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				homeViewPager.setCurrentItem(TYPE_CIRCLE,false);
+				homeViewPager.setCurrentItem(TYPE_CIRCLE, false);
 			}
 		});
 
@@ -64,7 +93,7 @@ public class HomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				homeViewPager.setCurrentItem(TYPE_SHOP,false);
+				homeViewPager.setCurrentItem(TYPE_SHOP, false);
 			}
 		});
 
@@ -72,9 +101,56 @@ public class HomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				homeViewPager.setCurrentItem(TYPE_PERSION,false);
+				homeViewPager.setCurrentItem(TYPE_PERSION, false);
 			}
 		});
+		
+		ceshiNet.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ceshiNet()	;			
+			}
+		});
+		ceshiEvent.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				EventBus.getDefault().post(new cdshiEvent());
+			}
+		});
+	}
+
+	/**
+	 * 测试网络请求
+	 */
+	protected void ceshiNet() {
+		String url = "http://www.baidu.com";
+		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class,
+				new Listener<BaseModel>() {
+
+					@Override
+					public void onResponse(BaseModel arg0) {
+						Toast.makeText(HomeActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag","VolleyError"+arg0 );
+						Toast.makeText(HomeActivity.this, "网络请求失败了"+arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, this);
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(HomeActivity.this).add(request);
+	}
+
+	@Override
+	public void onEvent(IEvent event) {
+		super.onEvent(event);
+		Toast.makeText(HomeActivity.this, "测试Event成功", Toast.LENGTH_SHORT).show();
 	}
 
 }
