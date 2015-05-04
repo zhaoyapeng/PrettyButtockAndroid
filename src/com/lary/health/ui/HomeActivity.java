@@ -1,9 +1,13 @@
 package com.lary.health.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import netlib.net.volley.VolleyPostRequest;
 import netlib.net.volley.VolleyUtil;
 
 import com.android.volley.Response.ErrorListener;
+import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
 import netlib.model.BaseModel;
 
@@ -91,16 +95,16 @@ public class HomeActivity extends BaseFragmentActivity {
 				homeViewPager.setCurrentItem(TYPE_PERSION, false);
 			}
 		});
-		
+
 		ceshiNet.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				ceshiNet()	;			
+				ceshiNet();
 			}
 		});
 		ceshiEvent.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				EventBus.getDefault().post(new cdshiEvent());
@@ -125,11 +129,18 @@ public class HomeActivity extends BaseFragmentActivity {
 
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						Log.e("tag","VolleyError"+arg0 );
-						Toast.makeText(HomeActivity.this, "网络请求失败了"+arg0, Toast.LENGTH_SHORT).show();
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(HomeActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
 					}
 
-				}, this);
+				}, this) {
+                   @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                	   HashMap<String, String > map = new HashMap<String, String>();
+                	   map.put("id", "");
+                	return map;
+                }
+		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(HomeActivity.this).add(request);
 	}
