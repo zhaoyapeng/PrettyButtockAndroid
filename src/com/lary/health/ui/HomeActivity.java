@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class HomeActivity extends BaseFragmentActivity {
 	private HomeAdapter adapter;
 
 	private RadioButton homeBtn, circleBtn, shopBtn, persionBtn;
+	
 
 	private final static int TYPE_HOME = 0;
 	private final static int TYPE_CIRCLE = 1;
@@ -39,7 +41,6 @@ public class HomeActivity extends BaseFragmentActivity {
 	private final static int TYPE_PERSION = 3;
 
 	private Button ceshiNet, ceshiEvent;
-
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
