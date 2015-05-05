@@ -15,6 +15,7 @@ import netlib.model.TestBean;
 
 import com.android.volley.Response.Listener;
 import com.lary.health.R;
+import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
@@ -42,7 +43,7 @@ public class HomeActivity extends BaseFragmentActivity {
 	private final static int TYPE_SHOP = 2;
 	private final static int TYPE_PERSION = 3;
 
-	private Button ceshiNet, ceshiEvent,btn_video;
+	private Button ceshiNet, ceshiEvent,btn_video,btn_medir;
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
@@ -61,6 +62,7 @@ public class HomeActivity extends BaseFragmentActivity {
 		ceshiEvent = (Button) findViewById(R.id.btn_event);
 		btn_video = (Button) findViewById(R.id.btn_video);
 		btn_video.setVisibility(View.VISIBLE);
+		btn_medir = (Button) findViewById(R.id.btn_medir);
 	}
 
 	@Override
@@ -122,6 +124,17 @@ public class HomeActivity extends BaseFragmentActivity {
 				// TODO Auto-generated method stub
 				Intent in = new Intent(HomeActivity.this,PlayVideoActivity.class);
 				startActivity(in);
+			}
+		});
+		btn_medir.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String sign =MD5.getMD5("lary"+"app@qq.com"+"123");
+				Log.d("sign", sign);
+				Toast.makeText(HomeActivity.this, sign, 0).show();
+	
 			}
 		});
 	}
