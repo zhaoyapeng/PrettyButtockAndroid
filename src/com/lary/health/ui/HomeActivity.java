@@ -9,17 +9,20 @@ import netlib.net.volley.VolleyUtil;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
+
 import netlib.model.BaseModel;
+import netlib.model.TestBean;
 
 import com.android.volley.Response.Listener;
 import com.lary.health.R;
+import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
 
 import de.greenrobot.event.EventBus;
-
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,14 +36,14 @@ public class HomeActivity extends BaseFragmentActivity {
 	private HomeAdapter adapter;
 
 	private RadioButton homeBtn, circleBtn, shopBtn, persionBtn;
+	
 
 	private final static int TYPE_HOME = 0;
 	private final static int TYPE_CIRCLE = 1;
 	private final static int TYPE_SHOP = 2;
 	private final static int TYPE_PERSION = 3;
 
-	private Button ceshiNet, ceshiEvent;
-
+	private Button ceshiNet, ceshiEvent,btn_video,btn_medir;
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
@@ -57,6 +60,9 @@ public class HomeActivity extends BaseFragmentActivity {
 
 		ceshiNet = (Button) findViewById(R.id.btn_net);
 		ceshiEvent = (Button) findViewById(R.id.btn_event);
+		btn_video = (Button) findViewById(R.id.btn_video);
+		btn_video.setVisibility(View.VISIBLE);
+		btn_medir = (Button) findViewById(R.id.btn_medir);
 	}
 
 	@Override
@@ -111,18 +117,46 @@ public class HomeActivity extends BaseFragmentActivity {
 				EventBus.getDefault().post(new cdshiEvent());
 			}
 		});
+		btn_video.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent in = new Intent(HomeActivity.this,PlayVideoActivity.class);
+				startActivity(in);
+			}
+		});
+		/**
+		 * 验签方式： partner=meilitun在最前面 然后 别的参数按字母排序 最后在+ 上一个key 整体加在一起 进行MD5加密
+           key:lary
+		 */
+		btn_medir.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String sign =MD5.getMD5("partner=meilituan&email=app@qq.com&nickname=lary&password=123lary");
+				Log.d("sign", sign);
+				if("7cf64073abfc6d2fd8658899ef8df676".equals(sign)){
+					Toast.makeText(HomeActivity.this, "验签成功", 0).show();
+				}else{
+					Toast.makeText(HomeActivity.this, "验签失败", 0).show();
+
+				}
+			}
+		});
 	}
 
 	/**
 	 * 测试网络请求
 	 */
 	protected void ceshiNet() {
-		String url = "http://119.10.27.126:8080/api/system/register?partner=meilitun&sign=7cf64073abfc6d2fd8658899ef8df676";
-		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class,
-				new Listener<BaseModel>() {
+		String url = "http://119.10.27.126:8080/api/system/register?partner=meilituan&sign=7cf64073abfc6d2fd8658899ef8df676";
+		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
+				new Listener<TestBean>() {
 
 					@Override
-					public void onResponse(BaseModel arg0) {
+					public void onResponse(TestBean arg0) {
 						Toast.makeText(HomeActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
@@ -135,22 +169,27 @@ public class HomeActivity extends BaseFragmentActivity {
 					}
 
 				}, this) {
+			
 			@Override
-			protected Map<String, String> getParams() throws AuthFailureError {
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("nickname", "lary");
-				map.put("email", "app@qq.com");
-				map.put("password", "123");
-				return map;
-			}
-
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				 HashMap<String, String> headers = new HashMap<String, String>();
-			        headers.put("Accept", "application/json");
-			        headers.put("Content-Type", "application/json; charset=UTF-8");
-				return super.getHeaders();
-			}
+				public Map<String, String> getHeaders()
+						throws AuthFailureError {
+					// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String,String>();
+			//	hashMap.put("Accept", "application/json");
+				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+					return hashMap;
+				}
+                 @Override              
+                protected Map<String, String> getParams() throws AuthFailureError {
+                	   HashMap<String, String > map = new HashMap<String, String>();
+                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
+                	   map.put("nickname", "lary");
+                	   map.put("email", "app@qq.com");
+                	   map.put("password", "123");
+                	// map.put("contentType", "application/x-www-form-urlencoded");
+                	return map;
+                }
 		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(HomeActivity.this).add(request);
