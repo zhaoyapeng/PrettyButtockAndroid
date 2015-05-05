@@ -11,11 +11,9 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
 
 import netlib.model.BaseModel;
-import netlib.model.TestBean;
 
 import com.android.volley.Response.Listener;
 import com.lary.health.R;
-import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
@@ -122,8 +120,8 @@ public class HomeActivity extends BaseFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent in = new Intent(HomeActivity.this,PlayVideoActivity.class);
-				startActivity(in);
+//				Intent in = new Intent(HomeActivity.this,PlayVideoActivity.class);
+//				startActivity(in);
 			}
 		});
 		/**
@@ -134,15 +132,15 @@ public class HomeActivity extends BaseFragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String sign =MD5.getMD5("partner=meilituan&email=app@qq.com&nickname=lary&password=123lary");
-				Log.d("sign", sign);
-				if("7cf64073abfc6d2fd8658899ef8df676".equals(sign)){
-					Toast.makeText(HomeActivity.this, "验签成功", 0).show();
-				}else{
-					Toast.makeText(HomeActivity.this, "验签失败", 0).show();
-
-				}
+//				// TODO Auto-generated method stub
+////				String sign =MD5.getMD5("partner=meilituan&email=app@qq.com&nickname=lary&password=123lary");
+//				Log.d("sign", sign);
+//				if("7cf64073abfc6d2fd8658899ef8df676".equals(sign)){
+//					Toast.makeText(HomeActivity.this, "验签成功", 0).show();
+//				}else{
+//					Toast.makeText(HomeActivity.this, "验签失败", 0).show();
+//
+//				}
 			}
 		});
 	}
@@ -151,48 +149,48 @@ public class HomeActivity extends BaseFragmentActivity {
 	 * 测试网络请求
 	 */
 	protected void ceshiNet() {
-		String url = "http://119.10.27.126:8080/api/system/register?partner=meilituan&sign=7cf64073abfc6d2fd8658899ef8df676";
-		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
-				new Listener<TestBean>() {
-
-					@Override
-					public void onResponse(TestBean arg0) {
-						Toast.makeText(HomeActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
-					}
-
-				}, new ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						Log.e("tag", "VolleyError" + arg0);
-						Toast.makeText(HomeActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
-					}
-
-				}, this) {
-			
-			@Override
-				public Map<String, String> getHeaders()
-						throws AuthFailureError {
-					// TODO Auto-generated method stub
-				HashMap<String, String> hashMap = new HashMap<String,String>();
-			//	hashMap.put("Accept", "application/json");
-				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
-				hashMap.put("contentType", "application/x-www-form-urlencoded");
-					return hashMap;
-				}
-                 @Override              
-                protected Map<String, String> getParams() throws AuthFailureError {
-                	   HashMap<String, String > map = new HashMap<String, String>();
-                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
-                	   map.put("nickname", "lary");
-                	   map.put("email", "app@qq.com");
-                	   map.put("password", "123");
-                	// map.put("contentType", "application/x-www-form-urlencoded");
-                	return map;
-                }
-		};
-		request.setShouldCache(false);
-		VolleyUtil.getQueue(HomeActivity.this).add(request);
+//		String url = "http://119.10.27.126:8080/api/system/register?partner=meilituan&sign=7cf64073abfc6d2fd8658899ef8df676";
+//		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
+//				new Listener<TestBean>() {
+//
+//					@Override
+//					public void onResponse(TestBean arg0) {
+//						Toast.makeText(HomeActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
+//					}
+//
+//				}, new ErrorListener() {
+//
+//					@Override
+//					public void onErrorResponse(VolleyError arg0) {
+//						Log.e("tag", "VolleyError" + arg0);
+//						Toast.makeText(HomeActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+//					}
+//
+//				}, this) {
+//			
+//			@Override
+//				public Map<String, String> getHeaders()
+//						throws AuthFailureError {
+//					// TODO Auto-generated method stub
+//				HashMap<String, String> hashMap = new HashMap<String,String>();
+//			//	hashMap.put("Accept", "application/json");
+//				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+//				hashMap.put("contentType", "application/x-www-form-urlencoded");
+//					return hashMap;
+//				}
+//                 @Override              
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                	   HashMap<String, String > map = new HashMap<String, String>();
+//                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
+//                	   map.put("nickname", "lary");
+//                	   map.put("email", "app@qq.com");
+//                	   map.put("password", "123");
+//                	// map.put("contentType", "application/x-www-form-urlencoded");
+//                	return map;
+//                }
+//		};
+//		request.setShouldCache(false);
+//		VolleyUtil.getQueue(HomeActivity.this).add(request);
 	}
 
 	@Override
