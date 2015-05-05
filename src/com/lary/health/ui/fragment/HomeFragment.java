@@ -44,8 +44,6 @@ public class HomeFragment extends BaseViewPagerFragment {
 	protected void initWidgetActions() {
 		String url ="http://a.hiphotos.baidu.com/image/w%3D230/sign=1a3ed992a60f4bfb8cd09957334f788f/1e30e924b899a901d434ed3b1f950a7b0208f5be.jpg";
 		imageLoader.displayImage(url, ceshiImage, avatarOptions);
-		
-		
 	}
 
 	@Override

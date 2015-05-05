@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  * @Description 所有Fragment基类
  */
 public abstract class BaseFragment extends Fragment{
-	protected Context mContext;
+	private Context mContext;
      @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
