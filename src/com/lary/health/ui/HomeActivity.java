@@ -33,7 +33,6 @@ public class HomeActivity extends BaseFragmentActivity {
 	private HomeAdapter adapter;
 
 	private RadioButton homeBtn, circleBtn, shopBtn, persionBtn;
-	
 
 	private final static int TYPE_HOME = 0;
 	private final static int TYPE_CIRCLE = 1;
@@ -41,6 +40,7 @@ public class HomeActivity extends BaseFragmentActivity {
 	private final static int TYPE_PERSION = 3;
 
 	private Button ceshiNet, ceshiEvent;
+
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
@@ -117,7 +117,7 @@ public class HomeActivity extends BaseFragmentActivity {
 	 * 测试网络请求
 	 */
 	protected void ceshiNet() {
-		String url = "http://www.baidu.com";
+		String url = "http://119.10.27.126:8080/api/system/register?partner=meilitun&sign=7cf64073abfc6d2fd8658899ef8df676";
 		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class,
 				new Listener<BaseModel>() {
 
@@ -135,12 +135,22 @@ public class HomeActivity extends BaseFragmentActivity {
 					}
 
 				}, this) {
-                   @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                	   HashMap<String, String > map = new HashMap<String, String>();
-                	   map.put("id", "");
-                	return map;
-                }
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("nickname", "lary");
+				map.put("email", "app@qq.com");
+				map.put("password", "123");
+				return map;
+			}
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				 HashMap<String, String> headers = new HashMap<String, String>();
+			        headers.put("Accept", "application/json");
+			        headers.put("Content-Type", "application/json; charset=UTF-8");
+				return super.getHeaders();
+			}
 		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(HomeActivity.this).add(request);

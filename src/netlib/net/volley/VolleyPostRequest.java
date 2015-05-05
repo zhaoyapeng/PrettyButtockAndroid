@@ -3,6 +3,7 @@ package netlib.net.volley;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -13,6 +14,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import netlib.model.BaseModel;
 
