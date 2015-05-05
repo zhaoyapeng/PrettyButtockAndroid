@@ -9,7 +9,9 @@ import netlib.net.volley.VolleyUtil;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
+
 import netlib.model.BaseModel;
+import netlib.model.TestBean;
 
 import com.android.volley.Response.Listener;
 import com.lary.health.R;
@@ -19,7 +21,7 @@ import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
 
 import de.greenrobot.event.EventBus;
-
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +42,7 @@ public class HomeActivity extends BaseFragmentActivity {
 	private final static int TYPE_SHOP = 2;
 	private final static int TYPE_PERSION = 3;
 
-	private Button ceshiNet, ceshiEvent;
+	private Button ceshiNet, ceshiEvent,btn_video;
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
@@ -57,6 +59,8 @@ public class HomeActivity extends BaseFragmentActivity {
 
 		ceshiNet = (Button) findViewById(R.id.btn_net);
 		ceshiEvent = (Button) findViewById(R.id.btn_event);
+		btn_video = (Button) findViewById(R.id.btn_video);
+		btn_video.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -111,18 +115,27 @@ public class HomeActivity extends BaseFragmentActivity {
 				EventBus.getDefault().post(new cdshiEvent());
 			}
 		});
+		btn_video.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent in = new Intent(HomeActivity.this,PlayVideoActivity.class);
+				startActivity(in);
+			}
+		});
 	}
 
 	/**
 	 * 测试网络请求
 	 */
 	protected void ceshiNet() {
-		String url = "http://www.baidu.com";
-		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class,
-				new Listener<BaseModel>() {
+		String url = "http://119.10.27.126:8080/api/system/register?partner=meilituan&sign=7cf64073abfc6d2fd8658899ef8df676";
+		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
+				new Listener<TestBean>() {
 
 					@Override
-					public void onResponse(BaseModel arg0) {
+					public void onResponse(TestBean arg0) {
 						Toast.makeText(HomeActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
@@ -135,10 +148,25 @@ public class HomeActivity extends BaseFragmentActivity {
 					}
 
 				}, this) {
-                   @Override
+			
+			@Override
+				public Map<String, String> getHeaders()
+						throws AuthFailureError {
+					// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String,String>();
+			//	hashMap.put("Accept", "application/json");
+				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+					return hashMap;
+				}
+                 @Override              
                 protected Map<String, String> getParams() throws AuthFailureError {
                 	   HashMap<String, String > map = new HashMap<String, String>();
-                	   map.put("id", "");
+                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
+                	   map.put("nickname", "lary");
+                	   map.put("email", "app@qq.com");
+                	   map.put("password", "123");
+                	// map.put("contentType", "application/x-www-form-urlencoded");
                 	return map;
                 }
 		};

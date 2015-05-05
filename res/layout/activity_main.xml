@@ -16,6 +16,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="测试event"/>
+
+            <Button
+                android:id="@+id/btn_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试视频" />
+
     <com.lary.health.ui.widget.HomeViewPager
         android:id="@+id/view_pager"
         android:layout_width="fill_parent"
