@@ -38,26 +38,27 @@ public final class R {
         public static final int welcome_img=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f090014;
-        public static final int btn_circle=0x7f090007;
-        public static final int btn_close_image=0x7f09000c;
+        public static final int action_settings=0x7f090015;
+        public static final int btn_circle=0x7f090008;
+        public static final int btn_close_image=0x7f09000d;
         public static final int btn_event=0x7f090003;
-        public static final int btn_home=0x7f090006;
+        public static final int btn_home=0x7f090007;
+        public static final int btn_medir=0x7f090005;
         public static final int btn_net=0x7f090002;
-        public static final int btn_persion=0x7f090009;
-        public static final int btn_shop=0x7f090008;
+        public static final int btn_persion=0x7f09000a;
+        public static final int btn_shop=0x7f090009;
         public static final int btn_video=0x7f090004;
-        public static final int currentTimeView=0x7f090010;
-        public static final int img_ceshi=0x7f09000a;
+        public static final int currentTimeView=0x7f090011;
+        public static final int img_ceshi=0x7f09000b;
         public static final int ll=0x7f090001;
-        public static final int mediaControllerLayout=0x7f09000e;
-        public static final int my_video_view=0x7f09000b;
-        public static final int pb_load=0x7f09000d;
-        public static final int playButton=0x7f09000f;
-        public static final int totalTimeView=0x7f090011;
-        public static final int user_login_bt=0x7f090013;
-        public static final int videoSeekBar=0x7f090012;
-        public static final int view_pager=0x7f090005;
+        public static final int mediaControllerLayout=0x7f09000f;
+        public static final int my_video_view=0x7f09000c;
+        public static final int pb_load=0x7f09000e;
+        public static final int playButton=0x7f090010;
+        public static final int totalTimeView=0x7f090012;
+        public static final int user_login_bt=0x7f090014;
+        public static final int videoSeekBar=0x7f090013;
+        public static final int view_pager=0x7f090006;
         public static final int viewpager=0x7f090000;
     }
     public static final class layout {
@@ -112,7 +113,6 @@ public final class R {
          */
         public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
     }

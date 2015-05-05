@@ -60,7 +60,7 @@ public class HomeActivity extends BaseFragmentActivity {
 		ceshiNet = (Button) findViewById(R.id.btn_net);
 		ceshiEvent = (Button) findViewById(R.id.btn_event);
 		btn_video = (Button) findViewById(R.id.btn_video);
-		btn_video.setVisibility(View.GONE);
+		btn_video.setVisibility(View.VISIBLE);
 	}
 
 	@Override

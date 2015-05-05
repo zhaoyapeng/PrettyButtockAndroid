@@ -5,23 +5,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <Button 
+    <Button
         android:id="@+id/btn_net"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试网络,亚鹏"/>
-    
-      <Button 
+        android:text="测试网络" />
+
+    <Button
         android:id="@+id/btn_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试event"/>
+        android:text="测试event" />
 
-            <Button
-                android:id="@+id/btn_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="测试视频" />
+    <Button
+        android:id="@+id/btn_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试视频" />
+
+    <Button
+        android:id="@+id/btn_medir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试音频" />
 
     <com.lary.health.ui.widget.HomeViewPager
         android:id="@+id/view_pager"
