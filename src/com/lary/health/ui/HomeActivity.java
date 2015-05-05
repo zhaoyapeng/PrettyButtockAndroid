@@ -126,15 +126,23 @@ public class HomeActivity extends BaseFragmentActivity {
 				startActivity(in);
 			}
 		});
+		/**
+		 * 验签方式： partner=meilitun在最前面 然后 别的参数按字母排序 最后在+ 上一个key 整体加在一起 进行MD5加密
+           key:lary
+		 */
 		btn_medir.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String sign =MD5.getMD5("lary"+"app@qq.com"+"123");
+				String sign =MD5.getMD5("partner=meilituan&email=app@qq.com&nickname=lary&password=123lary");
 				Log.d("sign", sign);
-				Toast.makeText(HomeActivity.this, sign, 0).show();
-	
+				if("7cf64073abfc6d2fd8658899ef8df676".equals(sign)){
+					Toast.makeText(HomeActivity.this, "验签成功", 0).show();
+				}else{
+					Toast.makeText(HomeActivity.this, "验签失败", 0).show();
+
+				}
 			}
 		});
 	}
