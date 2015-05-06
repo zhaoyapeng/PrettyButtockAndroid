@@ -29,6 +29,7 @@
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:gravity="center"
+            android:background="#55000000"
             android:orientation="vertical" >
 
             <LinearLayout
