@@ -1,7 +1,6 @@
 package com.lary.health;
 
 import java.io.File;
-
 import netlib.util.LibIOUtil;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -24,6 +23,7 @@ public class HealthApplocation extends Application {
 	@Override
 	public void onCreate() {
 		initImageLoader();
+
 		super.onCreate();
 	}
 
