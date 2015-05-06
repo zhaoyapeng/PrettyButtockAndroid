@@ -27,24 +27,37 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int dark_dot=0x7f020000;
-        public static final int dark_normal=0x7f020001;
-        public static final int dot=0x7f020002;
-        public static final int dot_focus=0x7f020003;
-        public static final int dot_normal=0x7f020004;
-        public static final int homepage_title=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int list01=0x7f020007;
-        public static final int list02=0x7f020008;
-        public static final int list03=0x7f020009;
-        public static final int list04=0x7f02000a;
-        public static final int list05=0x7f02000b;
-        public static final int list06=0x7f02000c;
-        public static final int mv_start_button=0x7f02000d;
-        public static final int welcome_01=0x7f02000e;
-        public static final int welcome_02=0x7f02000f;
-        public static final int welcome_03=0x7f020010;
-        public static final int welcome_img=0x7f020011;
+        public static final int color_selector=0x7f020000;
+        public static final int dark_dot=0x7f020001;
+        public static final int dark_normal=0x7f020002;
+        public static final int discover_sel=0x7f020003;
+        public static final int discover_un_sel=0x7f020004;
+        public static final int dot=0x7f020005;
+        public static final int dot_focus=0x7f020006;
+        public static final int dot_normal=0x7f020007;
+        public static final int friend_sel=0x7f020008;
+        public static final int friend_un_sel=0x7f020009;
+        public static final int home_sel=0x7f02000a;
+        public static final int home_un_sel=0x7f02000b;
+        public static final int homepage_title=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int list01=0x7f02000e;
+        public static final int list02=0x7f02000f;
+        public static final int list03=0x7f020010;
+        public static final int list04=0x7f020011;
+        public static final int list05=0x7f020012;
+        public static final int list06=0x7f020013;
+        public static final int mv_start_button=0x7f020014;
+        public static final int personal_sel=0x7f020015;
+        public static final int personal_un_sel=0x7f020016;
+        public static final int tab_selector_circle=0x7f020017;
+        public static final int tab_selector_faxain=0x7f020018;
+        public static final int tab_selector_home=0x7f020019;
+        public static final int tab_selector_persion=0x7f02001a;
+        public static final int welcome_01=0x7f02001b;
+        public static final int welcome_02=0x7f02001c;
+        public static final int welcome_03=0x7f02001d;
+        public static final int welcome_img=0x7f02001e;
     }
     public static final class id {
         public static final int action_settings=0x7f09001b;

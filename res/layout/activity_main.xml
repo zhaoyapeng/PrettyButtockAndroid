@@ -22,8 +22,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:gravity="center" >
-
+            android:gravity="center"
+            android:paddingBottom="1dp" >
+            
             <RadioButton
                 android:id="@+id/btn_home"
                 android:layout_width="fill_parent"
@@ -31,7 +32,11 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center_horizontal"
-                android:text="@string/first_name" />
+                android:text="@string/first_name" 
+                android:drawableTop="@drawable/tab_selector_home"
+                android:textColor="@drawable/color_selector"
+                android:textSize="13sp"
+                android:drawablePadding="5dp"/>
 
             <RadioButton
                 android:id="@+id/btn_circle"
@@ -40,7 +45,11 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center_horizontal"
-                android:text="@string/third_name" />
+                android:text="@string/third_name" 
+                android:drawableTop="@drawable/tab_selector_faxain"
+                android:textColor="@drawable/color_selector"
+                android:drawablePadding="5dp"
+                android:textSize="13sp"/>
 
             <RadioButton
                 android:id="@+id/btn_shop"
@@ -49,7 +58,11 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center_horizontal"
-                android:text="@string/four_name" />
+                android:text="@string/four_name"
+                android:drawableTop="@drawable/tab_selector_circle" 
+                android:textColor="@drawable/color_selector"
+                android:drawablePadding="5dp"
+                android:textSize="13sp"/>
 
             <RadioButton
                 android:id="@+id/btn_persion"
@@ -58,7 +71,12 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center_horizontal"
-                android:text="@string/five_name" />
+                android:text="@string/five_name" 
+                android:drawableTop="@drawable/tab_selector_persion"
+                android:textColor="@drawable/color_selector"
+                android:drawablePadding="5dp"
+                android:textSize="13sp"
+                />
         </RadioGroup>
     </LinearLayout>
 

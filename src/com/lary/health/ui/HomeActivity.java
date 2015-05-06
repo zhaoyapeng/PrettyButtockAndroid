@@ -97,7 +97,7 @@ public class HomeActivity extends BaseFragmentActivity {
 				homeViewPager.setCurrentItem(TYPE_PERSION, false);
 			}
 		});
-
+		homeBtn.setChecked(true);
 	}
 
 	
