@@ -25,6 +25,7 @@
             android:orientation="horizontal" >
 
             <RadioButton
+                android:id="@+id/btn_gymnastics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
@@ -32,6 +33,7 @@
                 android:drawableRight="@drawable/gymnastics" />
 
             <RadioButton
+                android:id="@+id/btn_original"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
@@ -47,10 +49,9 @@
             android:src="@drawable/upload" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.lary.health.ui.widget.HomeViewPager
         android:id="@+id/viewpager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </android.support.v4.view.ViewPager>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

@@ -67,36 +67,48 @@ public final class R {
         public static final int welcome_02=0x7f020025;
         public static final int welcome_03=0x7f020026;
         public static final int welcome_img=0x7f020027;
+        public static final int xlistview_arrow=0x7f020028;
     }
     public static final class id {
-        public static final int action_settings=0x7f09001b;
-        public static final int btn_circle=0x7f090004;
-        public static final int btn_close_image=0x7f090012;
-        public static final int btn_home=0x7f090003;
-        public static final int btn_persion=0x7f090006;
-        public static final int btn_shop=0x7f090005;
-        public static final int currentTimeView=0x7f090016;
-        public static final int dot_0=0x7f090008;
-        public static final int dot_1=0x7f090009;
-        public static final int dot_2=0x7f09000a;
-        public static final int dot_3=0x7f09000b;
-        public static final int dot_4=0x7f09000c;
-        public static final int forimg_viewpager=0x7f090007;
-        public static final int func_gridview=0x7f09000e;
-        public static final int home_item_image=0x7f09000f;
-        public static final int home_item_text=0x7f090010;
-        public static final int image=0x7f090019;
+        public static final int action_settings=0x7f090026;
+        public static final int btn_circle=0x7f090006;
+        public static final int btn_close_image=0x7f090015;
+        public static final int btn_gymnastics=0x7f090002;
+        public static final int btn_home=0x7f090005;
+        public static final int btn_original=0x7f090003;
+        public static final int btn_persion=0x7f090008;
+        public static final int btn_shop=0x7f090007;
+        public static final int currentTimeView=0x7f090019;
+        public static final int dot_0=0x7f09000b;
+        public static final int dot_1=0x7f09000c;
+        public static final int dot_2=0x7f09000d;
+        public static final int dot_3=0x7f09000e;
+        public static final int dot_4=0x7f09000f;
+        public static final int forimg_viewpager=0x7f09000a;
+        public static final int func_gridview=0x7f090011;
+        public static final int home_item_image=0x7f090012;
+        public static final int home_item_text=0x7f090013;
+        public static final int image=0x7f09001c;
+        public static final int listview_gymnastuics=0x7f090009;
         public static final int ll=0x7f090001;
-        public static final int mediaControllerLayout=0x7f090014;
-        public static final int my_video_view=0x7f090011;
-        public static final int pb_load=0x7f090013;
-        public static final int playButton=0x7f090015;
-        public static final int refreshable_view=0x7f09000d;
-        public static final int totalTimeView=0x7f090017;
-        public static final int user_login_bt=0x7f09001a;
-        public static final int videoSeekBar=0x7f090018;
-        public static final int view_pager=0x7f090002;
+        public static final int mediaControllerLayout=0x7f090017;
+        public static final int my_video_view=0x7f090014;
+        public static final int pb_load=0x7f090016;
+        public static final int playButton=0x7f090018;
+        public static final int refreshable_view=0x7f090010;
+        public static final int totalTimeView=0x7f09001a;
+        public static final int user_login_bt=0x7f09001d;
+        public static final int videoSeekBar=0x7f09001b;
+        public static final int view_pager=0x7f090004;
         public static final int viewpager=0x7f090000;
+        public static final int xlistview_footer_content=0x7f09001e;
+        public static final int xlistview_footer_hint_textview=0x7f090020;
+        public static final int xlistview_footer_progressbar=0x7f09001f;
+        public static final int xlistview_header_arrow=0x7f090024;
+        public static final int xlistview_header_content=0x7f090021;
+        public static final int xlistview_header_hint_textview=0x7f090023;
+        public static final int xlistview_header_progressbar=0x7f090025;
+        public static final int xlistview_header_text=0x7f090022;
     }
     public static final class layout {
         public static final int activity_guide=0x7f030000;
@@ -115,6 +127,8 @@ public final class R {
         public static final int what_new_one=0x7f03000d;
         public static final int what_new_three=0x7f03000e;
         public static final int what_new_two=0x7f03000f;
+        public static final int xlistview_footer=0x7f030010;
+        public static final int xlistview_header=0x7f030011;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -128,8 +142,15 @@ public final class R {
         public static final int five_name=0x7f060007;
         public static final int four_name=0x7f060006;
         public static final int hello_world=0x7f060002;
+        public static final int pull_to_refresh_refreshing_label=0x7f06000e;
         public static final int second_name=0x7f060004;
         public static final int third_name=0x7f060005;
+        public static final int xlistview_footer_hint_normal=0x7f06000c;
+        public static final int xlistview_footer_hint_ready=0x7f06000d;
+        public static final int xlistview_header_hint_loading=0x7f06000a;
+        public static final int xlistview_header_hint_normal=0x7f060008;
+        public static final int xlistview_header_hint_ready=0x7f060009;
+        public static final int xlistview_header_last_time=0x7f06000b;
     }
     public static final class style {
         /** 

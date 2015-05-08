@@ -6,6 +6,7 @@ import java.util.List;
 import netlib.model.HomeDirect;
 
 import com.lary.health.R;
+import com.lary.health.ui.GymnasticsBeautifulActivity;
 import com.lary.health.ui.adaper.HomeFunctionAdapter;
 import com.lary.health.ui.widget.RollViewPager2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -13,10 +14,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -70,6 +74,17 @@ public class HomeFragment extends BaseViewPagerFragment {
 		String url ="http://a.hiphotos.baidu.com/image/w%3D230/sign=1a3ed992a60f4bfb8cd09957334f788f/1e30e924b899a901d434ed3b1f950a7b0208f5be.jpg";
 	//	imageLoader.displayImage(url, ceshiImage, avatarOptions);
 		forImg();
+		
+		func_gridview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                  if(position==0){
+                	  Intent intent = new Intent(mContext,GymnasticsBeautifulActivity.class);
+                	  startActivity(intent);
+                  }				
+			}
+		});
 	}
 
 	@Override
