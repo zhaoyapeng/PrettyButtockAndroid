@@ -94,7 +94,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 	
 	private void initItems()
 	{
-		String name[] ={"垫上美操","体质辨识","养身音乐","原创音乐","最新活动","锻炼记录"};
+		String name[] ={"垫上美操","体质辨识","音乐养生","原创音乐","最新活动","锻炼记录"};
 		int [] image = {R.drawable.list01,R.drawable.list02,R.drawable.list03,
 				R.drawable.list04,R.drawable.list05,R.drawable.list06};
 		 homedirects =new  ArrayList<HomeDirect>();
