@@ -1,23 +1,32 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-  <VideoView
-        android:id="@+id/my_video_view"
-        android:layout_gravity="center"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+    <FrameLayout 
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="0dp"
+       android:layout_weight="0.45"
+        >
+
+    <VideoView
+        android:id="@+id/my_video_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
 
     <ImageButton
-		android:background="#ffffff"
+		android:background="@android:color/transparent"
         android:id="@+id/btn_close_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="centerInside"
+        android:src="@drawable/back"
         android:contentDescription="@string/app_name" />
     <ProgressBar 
 	    android:id="@+id/pb_load"
 	    android:layout_gravity="center"
-	   
+	    android:indeterminateDrawable="@drawable/progressbar_bg"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"/>
 
@@ -26,7 +35,7 @@
             android:layout_gravity="bottom"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-             >
+            android:background="@drawable/mv_controll_bg" >
 
             <ImageButton
                 android:id="@+id/playButton"
@@ -34,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
+                android:background="#00000000"
                 android:src="@drawable/mv_start_button" />
 
             <TextView
@@ -62,6 +72,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:progressDrawable="@drawable/mv_seekbar_style"
+                    android:thumb="@drawable/mv_seekbar_progress"
                     android:thumbOffset="2dp"
                     android:focusable="false" />
             </LinearLayout>
@@ -78,4 +90,5 @@
                 android:text="00:00:00" />
 
         </RelativeLayout>
-</FrameLayout>
+        </FrameLayout>
+</LinearLayout>
