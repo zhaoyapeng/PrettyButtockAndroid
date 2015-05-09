@@ -51,8 +51,8 @@ public class VolleyGetRequest<T extends BaseModel>  extends Request<T> {
         return null;
     }
 
-    public VolleyGetRequest(String url, Class<T> modelClass, VolleySuccessListener<T> listener,
-                         Response.ErrorListener errorListener,Context mContext) {
+    public VolleyGetRequest(String url, Class<T> modelClass, Response.Listener<T> listener,
+			Response.ErrorListener errorListener, Context mContext) {
         super(Method.GET, url, errorListener);
         mListener = listener;
         this.modelClass = modelClass;

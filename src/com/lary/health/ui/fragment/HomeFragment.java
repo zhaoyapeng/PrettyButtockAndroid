@@ -7,6 +7,7 @@ import java.util.Map;
 
 import netlib.model.HomeDirect;
 import netlib.model.TestBean;
+import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyPostRequest;
 import netlib.net.volley.VolleyUtil;
 
@@ -130,6 +131,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 				}
 			}
 		});
+		getHomeInfoNet();
 	}
 
 	@Override
@@ -182,8 +184,8 @@ public class HomeFragment extends BaseViewPagerFragment {
 	}
 	
 	private void getHomeInfoNet(){
-		String url = getString(R.string.base_url)+"api/system/getbanner?partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
-		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
+		String url = getString(R.string.base_url)+"api/system/getbanner?&partner=meilitun&sign="+MD5.getMD5("partner=meilitun");
+		VolleyGetRequest<TestBean> request = new VolleyGetRequest<TestBean>(url, TestBean.class,
 				new Listener<TestBean>() {
 
 					@Override
@@ -211,19 +213,14 @@ public class HomeFragment extends BaseViewPagerFragment {
 				hashMap.put("contentType", "application/x-www-form-urlencoded");
 					return hashMap;
 				}
-                 @Override              
-                protected Map<String, String> getParams() throws AuthFailureError {
-                	   HashMap<String, String > map = new HashMap<String, String>();
-                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
-                	   map.put("nickname", "lary");
-                	   map.put("email", "app@qq.com");
-                	   map.put("password", "123");
-                	// map.put("contentType", "application/x-www-form-urlencoded");
-                	return map;
-                }
 		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(mContext).add(request);
+	}
+	
+	private String getMD5(String mdStr){
+		String sign =MD5.getMD5(mdStr);
+		return sign;
 	}
 
 }
