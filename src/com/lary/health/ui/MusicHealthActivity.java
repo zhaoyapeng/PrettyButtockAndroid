@@ -43,7 +43,7 @@ public class MusicHealthActivity extends BaseFragmentActivity implements
 		musicViewPager = (HomeViewPager) findViewById(R.id.music_view_pager);
 		btn_five_music = (RadioButton) findViewById(R.id.btn_five_music);
 		btn_condition_music = (RadioButton) findViewById(R.id.btn_condition_music);
-		btn_original_music = (RadioButton) findViewById(R.id.btn_condition_music);
+		btn_original_music = (RadioButton) findViewById(R.id.btn_original_music);
 		btn_make_music = (RadioButton) findViewById(R.id.btn_make_music);
 		btn_prescription_music = (RadioButton) findViewById(R.id.btn_prescription_music);
 
