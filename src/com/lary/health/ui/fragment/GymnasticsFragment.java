@@ -31,9 +31,11 @@ import android.widget.Toast;
  * @Email zhaoyp@witmob.com
  * @Description 垫上体操fragment
  */
-public class GymnasticsFragment extends BaseViewPagerFragment implements XListView.IXListViewListener{
+public class GymnasticsFragment extends BaseViewPagerFragment implements XListView.IXListViewListener {
 	private XListView gymnasticsList;
 	private GymnasticeAdapter adapter;
+	private int currentPage = 1;
+	private int LIMIT = 10;
 
 	@Override
 	protected void initData() {
@@ -43,7 +45,7 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 	@Override
 	protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_gymnastics, container, false);
-		gymnasticsList = (XListView)view.findViewById(R.id.listview_gymnastuics);
+		gymnasticsList = (XListView) view.findViewById(R.id.listview_gymnastuics);
 		return view;
 	}
 
@@ -54,25 +56,31 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 
 	@Override
 	public void onRefresh() {
-		getHomeInfoNet(1, 10);
+		currentPage = 1;
+		getGymnasticsNet(currentPage, LIMIT);
 	}
 
 	@Override
 	public void onLoadMore() {
-		
+		currentPage++;
+		getGymnasticsNet(currentPage, LIMIT);
 	}
 
-	private void getHomeInfoNet(int pageIndex,int pageSize) {
+	
+	private void getGymnasticsNet(int pageIndex, int pageSize) {
 
-		String url = getString(R.string.base_url)
-				+ "api/system/GetVideo1?partner=meilitun&pageIndex="+pageIndex+"&pageSize="+pageSize
-				+"&sign="+MD5.getMD5("partner=meilitun&"+"pageIndex="+pageIndex+"&pageSize="+pageSize+"lary");
-		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(url, GymnasticsListModel.class,
-				new Listener<GymnasticsListModel>() {
+		String url = getString(R.string.base_url) + "api/system/GetVideo1?partner=meilitun&pageIndex=" + pageIndex
+				+ "&pageSize=" + pageSize + "&sign="
+				+ MD5.getMD5("pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&partner=meilitun" + "lary");
+		Log.e("tag", "网络请求url" + url);
+		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(url,
+				GymnasticsListModel.class, new Listener<GymnasticsListModel>() {
 					@Override
 					public void onResponse(GymnasticsListModel model) {
-						Toast.makeText(mContext, "网络请求成功" , Toast.LENGTH_SHORT)
-								.show();
+						if(model.getCode()==0){
+							adapter.refreshData(model.getRows());
+						}
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -102,6 +110,6 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 
 	@Override
 	protected void refreshData() {
-		getHomeInfoNet(1, 10);
+		getGymnasticsNet(currentPage, LIMIT);
 	}
 }
