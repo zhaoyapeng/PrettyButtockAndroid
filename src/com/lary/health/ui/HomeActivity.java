@@ -57,7 +57,6 @@ public class HomeActivity extends BaseFragmentActivity {
 		circleBtn = (RadioButton) findViewById(R.id.btn_circle);
 		shopBtn = (RadioButton) findViewById(R.id.btn_shop);
 		persionBtn = (RadioButton) findViewById(R.id.btn_persion);
-
 	}
 
 	@Override
