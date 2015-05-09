@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.lary.health.R;
 import com.lary.health.service.model.GymnasticsListItemModel;
+import com.lary.health.service.model.OriginalItemModel;
 import com.lary.health.service.model.OriginalListModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,13 +29,13 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
  */
 public class OriginalAdapter extends BaseAdapter{
 	private Context mContext;
-	private List<OriginalListModel> list;
+	private List<OriginalItemModel> list;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions avatarOptions;
 
 	public OriginalAdapter(Context mContext) {
 		this.mContext = mContext;
-		list = new ArrayList<OriginalListModel>();
+		list = new ArrayList<OriginalItemModel>();
 		imageLoader = ImageLoader.getInstance();
 		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
@@ -81,18 +82,18 @@ public class OriginalAdapter extends BaseAdapter{
 			sizeText = (TextView)view.findViewById(R.id.text_size);
 		}
 		
-		public void update(OriginalListModel model){
+		public void update(OriginalItemModel model){
 //			imageLoader.displayImage(model.getImgUrl(), gyImg,avatarOptions);
 //			titleText.setText(model.getIntruduce());
 		}
 	}
 	
-	public void refreshData(List<OriginalListModel> list){
+	public void refreshData(List<OriginalItemModel> list){
 		this.list.clear();
 		this.list.addAll(list);
 	}
 	
-	public void addData(List<OriginalListModel> list){
+	public void addData(List<OriginalItemModel> list){
 		this.list.addAll(list);
 	}
 }

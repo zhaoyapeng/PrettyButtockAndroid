@@ -13,6 +13,7 @@ import com.android.volley.Response.Listener;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.GymnasticsListModel;
+import com.lary.health.service.model.OriginalListModel;
 import com.lary.health.ui.adaper.OriginalAdapter;
 import com.lary.health.ui.widget.XListView;
 
@@ -53,15 +54,18 @@ public class OriginalFragment extends BaseViewPagerFragment implements XListView
 		originalListView.setAdapter(adapter);
 	}
 
-	private void getOriginalNet(int pageIndex,int pageSize) {
+	private void getOriginalRereshNet(int pageIndex,int pageSize) {
 
 		String url = getString(R.string.base_url)
 				+ "api/system/GetVideo2?partner=meilitun&pageIndex="+pageIndex+"&pageSize="+pageSize
 				+"&sign="+MD5.getMD5("pageIndex="+pageIndex+"&pageSize="+pageSize+"&partner=meilitun"+"lary");
-		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(url, GymnasticsListModel.class,
-				new Listener<GymnasticsListModel>() {
+		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url, OriginalListModel.class,
+				new Listener<OriginalListModel>() {
 					@Override
-					public void onResponse(GymnasticsListModel model) {
+					public void onResponse(OriginalListModel model) {
+						if(model.getCode()==0){
+							adapter.refreshData(model.getRows());
+						}
 						Toast.makeText(mContext, "网络请求成功" , Toast.LENGTH_SHORT)
 								.show();
 					}
@@ -91,22 +95,64 @@ public class OriginalFragment extends BaseViewPagerFragment implements XListView
 		VolleyUtil.getQueue(mContext).add(request);
 	}
 
+	private void getOriginalAddNet(int pageIndex,int pageSize) {
+
+		String url = getString(R.string.base_url)
+				+ "api/system/GetVideo2?partner=meilitun&pageIndex="+pageIndex+"&pageSize="+pageSize
+				+"&sign="+MD5.getMD5("pageIndex="+pageIndex+"&pageSize="+pageSize+"&partner=meilitun"+"lary");
+		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url, OriginalListModel.class,
+				new Listener<OriginalListModel>() {
+					@Override
+					public void onResponse(OriginalListModel model) {
+						if(model.getCode()==0){
+							adapter.addData(model.getRows());
+						}
+						
+						Toast.makeText(mContext, "网络请求成功" , Toast.LENGTH_SHORT)
+								.show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(mContext, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, mContext) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+				return hashMap;
+			}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(mContext).add(request);
+	}
 	
 	@Override
 	public void onRefresh() {
 		currentPage =1;
-		getOriginalNet(currentPage, LIMIT);
+		getOriginalRereshNet(currentPage, LIMIT);
 	}
 
 	@Override
 	public void onLoadMore() {
 		currentPage++;
-		getOriginalNet(currentPage, LIMIT);		
+		getOriginalAddNet(currentPage, LIMIT);		
 	}
 
 	@Override
 	protected void refreshData() {
-		getOriginalNet(currentPage, LIMIT);		
+		currentPage=1;
+		getOriginalRereshNet(currentPage, LIMIT);		
 	}
 
 }

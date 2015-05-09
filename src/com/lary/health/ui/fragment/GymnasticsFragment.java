@@ -57,17 +57,19 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 	@Override
 	public void onRefresh() {
 		currentPage = 1;
-		getGymnasticsNet(currentPage, LIMIT);
+		getGymnasticsRefreshNet(currentPage, LIMIT);
 	}
 
 	@Override
 	public void onLoadMore() {
 		currentPage++;
-		getGymnasticsNet(currentPage, LIMIT);
+		getGymnasticsAddNet(currentPage, LIMIT);
 	}
 
-	
-	private void getGymnasticsNet(int pageIndex, int pageSize) {
+	/**
+	 * 刷新数据
+	 * */
+	private void getGymnasticsRefreshNet(int pageIndex, int pageSize) {
 
 		String url = getString(R.string.base_url) + "api/system/GetVideo1?partner=meilitun&pageIndex=" + pageIndex
 				+ "&pageSize=" + pageSize + "&sign="
@@ -107,9 +109,54 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(mContext).add(request);
 	}
+	
+	/**
+	 * 加载更多
+	 * */
+	private void getGymnasticsAddNet(int pageIndex, int pageSize) {
+
+		String url = getString(R.string.base_url) + "api/system/GetVideo1?partner=meilitun&pageIndex=" + pageIndex
+				+ "&pageSize=" + pageSize + "&sign="
+				+ MD5.getMD5("pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&partner=meilitun" + "lary");
+		Log.e("tag", "网络请求url" + url);
+		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(url,
+				GymnasticsListModel.class, new Listener<GymnasticsListModel>() {
+					@Override
+					public void onResponse(GymnasticsListModel model) {
+						if(model.getCode()==0){
+							adapter.addData(model.getRows());
+						}
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(mContext, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, mContext) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+				return hashMap;
+			}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(mContext).add(request);
+	}
 
 	@Override
 	protected void refreshData() {
-		getGymnasticsNet(currentPage, LIMIT);
+		currentPage=1;
+		getGymnasticsRefreshNet(currentPage, LIMIT);
 	}
 }
