@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 
+import netlib.model.BannerModel;
 import netlib.model.BaseModel;
 
 /**
@@ -51,6 +52,7 @@ public class VolleyGetRequest<T extends BaseModel> extends Request<T> {
 	public String getDemoRespose() {
 		return null;
 	}
+
 
 	public VolleyGetRequest(String url, Class<T> modelClass, Response.Listener<T> listener,
 			Response.ErrorListener errorListener, Context mContext) {

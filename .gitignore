@@ -1,8 +1,18 @@
 /gen
+
 /bin
 .classpath
 .project
+
 /.idea
+
 /out
+<<<<<<< HEAD
 gen/
 bin/
+=======
+
+/.apk
+/.settings
+/proguard
+>>>>>>> 335db60d240bb6c94a3e048682d568de866d8378
