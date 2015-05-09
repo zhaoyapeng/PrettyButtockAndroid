@@ -14,6 +14,7 @@ import netlib.net.volley.VolleyUtil;
 import com.android.volley.AuthFailureError;
 import com.lary.health.R;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
+import com.lary.health.ui.MusicHealthActivity;
 import com.lary.health.ui.PlayVideoActivity;
 import com.lary.health.ui.adaper.HomeFunctionAdapter;
 import com.lary.health.ui.widget.RollViewPager2;
@@ -125,6 +126,10 @@ public class HomeFragment extends BaseViewPagerFragment {
 					break;
 				case 1:
 					intent.setClass(getActivity(),PlayVideoActivity.class);
+					startActivity(intent);
+					break;
+				case 2:
+					intent.setClass(getActivity(),MusicHealthActivity.class);
 					startActivity(intent);
 					break;
 				default:
