@@ -14,6 +14,24 @@ public class OriginalItemModel extends BaseModel {
 	private String ImgUrl;
 	private String VideoUrl;
 	private String Intruduce;
+	private String NickName;
+	private String PhotoImg;
+
+	public String getNickName() {
+		return NickName;
+	}
+
+	public void setNickName(String nickName) {
+		NickName = nickName;
+	}
+
+	public String getPhotoImg() {
+		return PhotoImg;
+	}
+
+	public void setPhotoImg(String photoImg) {
+		PhotoImg = photoImg;
+	}
 
 	public String getId() {
 		return Id;

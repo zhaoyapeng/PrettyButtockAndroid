@@ -5,6 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- 登录 注册 -->
+    <string name="login_title">我</string>
+
     <!-- 首页 -->
     <string name="first_name">首页</string>
     <string name="second_name">最新</string>
@@ -12,9 +15,21 @@
     <string name="four_name">商城</string>
     <string name="five_name">个人中心</string>
 
+    <!-- 个人中心 -->
+    <string name="persionnal_title">用户名</string>
+    <string name="down">下载 </string>
+    <string name="recode">记录 </string>
+    <string name="shoucang">收藏 </string>
+    <string name="pingce">评测 </string>
+    <string name="message">消息 </string>
+    <string name="about">关于系统</string>
+    <string name="downset">下载设置 </string>
+
     <!-- 音乐养生 -->
     <string name="first_music_name">五行音乐</string>
     <string name="second_music_name">音乐调理</string>
     <string name="third_music_name">原创音乐</string>
     <string name="four_music_name">美丽臀制造</string>
-    <string name="five_music_name">音乐处方</string></resources>
+    <string name="five_music_name">音乐处方</string>
+
+</resources>
