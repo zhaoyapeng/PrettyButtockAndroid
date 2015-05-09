@@ -89,13 +89,12 @@ public class LoginActivity extends BaseFragmentActivity implements OnClickListen
 		if(TextUtil.isEmail(userName)){
 			type = "1";
 		}
-		String url = getString(R.string.base_url)+"api/system/Login?partner=meilitun&sign="+MD5.getMD5("partner=meilitun&name="+userName+"&password="+passWord+"&type="+type+"lary")+"&name="+userName+"&password="+passWord+"&type="+type;
-		Log.e("url", MD5.getMD5("partner=meilitun&name="+userName+"&password="+passWord+"&type="+type+"lary"));
+		String url = getString(R.string.base_url)+"api/system/Login?partner=meilitun&sign="+MD5.getMD5("name="+userName+"&partner=meilitun&password="+passWord+"&type="+type+"lary")+"&name="+userName+"&password="+passWord+"&type="+type;
 		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(url, HomeModelNet.class,
 				new Listener<HomeModelNet>() {
 					@Override
 					public void onResponse(HomeModelNet arg0) {
-						Toast.makeText(LoginActivity.this, "网络请求成功"+arg0.getNetInfo().get(0).getImgurl(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(LoginActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
