@@ -12,4 +12,9 @@
     <string name="four_name">商城</string>
     <string name="five_name">个人中心</string>
 
-</resources>
+    <!-- 音乐养生 -->
+    <string name="first_music_name">五行音乐</string>
+    <string name="second_music_name">音乐调理</string>
+    <string name="third_music_name">原创音乐</string>
+    <string name="four_music_name">美丽臀制造</string>
+    <string name="five_music_name">音乐处方</string></resources>
