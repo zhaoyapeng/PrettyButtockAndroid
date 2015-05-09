@@ -37,7 +37,6 @@ public class HomeActivity extends BaseFragmentActivity {
 
 	private RadioButton homeBtn, circleBtn, shopBtn, persionBtn;
 	
-
 	private final static int TYPE_HOME = 0;
 	private final static int TYPE_CIRCLE = 1;
 	private final static int TYPE_SHOP = 2;

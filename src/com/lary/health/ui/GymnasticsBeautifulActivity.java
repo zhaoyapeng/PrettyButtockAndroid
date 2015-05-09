@@ -1,11 +1,24 @@
 package com.lary.health.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import netlib.model.TestBean;
+import netlib.net.volley.VolleyGetRequest;
+import netlib.net.volley.VolleyUtil;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.VolleyError;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
 import com.lary.health.R;
+import com.lary.health.MD5Util.MD5;
 import com.lary.health.ui.adaper.GymnasticsAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
 
@@ -46,6 +59,7 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 				gymnasticsBtn.setChecked(true);
 				originalBtn.setChecked(false);
 				viewPager.setCurrentItem(0, false);
+				getHomeInfoNet();
 			}
 		});
 
@@ -58,6 +72,47 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 				viewPager.setCurrentItem(1, false);
 			}
 		});
+	}
+	
+	
+	private void getHomeInfoNet(){
+		String url = getString(R.string.base_url)+"api/system/GetVideo1?&partner=meilitun&sign=67b195dbd8ae9717df622af85b60f390"+"&pageIndex=1&pageSize=5";
+		VolleyGetRequest<TestBean> request = new VolleyGetRequest<TestBean>(url, TestBean.class,
+				new Listener<TestBean>() {
+
+					@Override
+					public void onResponse(TestBean arg0) {
+						Toast.makeText(GymnasticsBeautifulActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(GymnasticsBeautifulActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, GymnasticsBeautifulActivity.this) {
+			
+			@Override
+				public Map<String, String> getHeaders()
+						throws AuthFailureError {
+					// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String,String>();
+			//	hashMap.put("Accept", "application/json");
+				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+					return hashMap;
+				}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(GymnasticsBeautifulActivity.this).add(request);
+	}
+	
+	private String getMD5(String mdStr){
+		String sign =MD5.getMD5(mdStr);
+		return sign;
 	}
 
 }

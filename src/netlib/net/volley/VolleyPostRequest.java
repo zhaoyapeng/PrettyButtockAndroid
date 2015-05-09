@@ -43,7 +43,6 @@ public class VolleyPostRequest<T extends BaseModel> extends Request<T> {
 		return getUrl() + params;
 	}
 
-
 	/**
 	 * 
 	 * null 正常逻辑 可以重写此方法，返回json数据 TODO
@@ -79,8 +78,10 @@ public class VolleyPostRequest<T extends BaseModel> extends Request<T> {
 		try {
 			parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 			Log.e("tag", "网络请求结果=" + parsed);
-			responseWrapper = Response.success(new Gson().fromJson(parsed, modelClass),
-					VolleyHttpHeaderParser.volleyParseCacheHeaders(response));
+			responseWrapper = Response.success(
+					new Gson().fromJson(
+							parsed.replaceAll("\\\\", "").substring(1, parsed.replaceAll("\\\\", "").length() - 1),
+							modelClass), VolleyHttpHeaderParser.volleyParseCacheHeaders(response));
 
 			return responseWrapper;
 		} catch (UnsupportedEncodingException e) {
