@@ -1,6 +1,13 @@
 /gen
+
 /bin
 .classpath
 .project
+
 /.idea
+
 /out
+
+/.apk
+/.settings
+/proguard

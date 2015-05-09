@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import netlib.model.BannerModel;
 import netlib.model.HomeDirect;
 import netlib.model.TestBean;
+import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyPostRequest;
 import netlib.net.volley.VolleyUtil;
 
 import com.android.volley.AuthFailureError;
+import com.google.gson.Gson;
 import com.lary.health.R;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
+import com.lary.health.ui.MusicHealthActivity;
 import com.lary.health.ui.PlayVideoActivity;
 import com.lary.health.ui.adaper.HomeFunctionAdapter;
 import com.lary.health.ui.widget.RollViewPager2;
@@ -31,6 +35,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+
+
 
 
 import com.android.volley.Response.ErrorListener;
@@ -82,6 +89,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 				.cacheOnDisk(true).considerExifParams(true)
 				.displayer(new SimpleBitmapDisplayer())
 				.imageScaleType(ImageScaleType.EXACTLY).build();
+		
 	}
 
 	@Override
@@ -96,10 +104,10 @@ public class HomeFragment extends BaseViewPagerFragment {
 		func_gridview.setAdapter(gridAdapter);
 		dots = new ArrayList<View>();
 		dots.add(view.findViewById(R.id.dot_0));
-		dots.add(view.findViewById(R.id.dot_1));
-		dots.add(view.findViewById(R.id.dot_2));
-		dots.add(view.findViewById(R.id.dot_3));
-		dots.add(view.findViewById(R.id.dot_4));
+		//dots.add(view.findViewById(R.id.dot_1));
+	//	dots.add(view.findViewById(R.id.dot_2));
+	//	dots.add(view.findViewById(R.id.dot_3));
+	//	dots.add(view.findViewById(R.id.dot_4));
 		return view;
 	}
 
@@ -125,11 +133,16 @@ public class HomeFragment extends BaseViewPagerFragment {
 					intent.setClass(getActivity(),PlayVideoActivity.class);
 					startActivity(intent);
 					break;
+				case 2:
+					intent.setClass(getActivity(),MusicHealthActivity.class);
+					startActivity(intent);
+					break;
 				default:
 					break;
 				}
 			}
 		});
+		getHomeInfoNet();
 	}
 
 	@Override
@@ -155,11 +168,11 @@ public class HomeFragment extends BaseViewPagerFragment {
 	public void forImg() {
 		// 构造网络图片
 		uriList = new ArrayList<String>();
-		uriList.add("http://h.hiphotos.baidu.com/album/w%3D2048/sign=730e7fdf95eef01f4d141fc5d4c69825/94cad1c8a786c917b8bf9482c83d70cf3ac757c9.jpg");
-		uriList.add("http://g.hiphotos.baidu.com/album/w%3D2048/sign=00d4819db8014a90813e41bd9d4f3812/562c11dfa9ec8a137de469cff603918fa0ecc026.jpg");
-		uriList.add("http://c.hiphotos.baidu.com/album/w%3D2048/sign=a8631adb342ac65c67056173cfcab011/b8389b504fc2d56217d11656e61190ef77c66cb4.jpg");
-		uriList.add("http://e.hiphotos.baidu.com/album/w%3D2048/sign=ffac8994a71ea8d38a227304a332314e/1ad5ad6eddc451da4d9d32c4b7fd5266d01632b1.jpg");
-		uriList.add("http://a.hiphotos.baidu.com/album/w%3D2048/sign=afbe93839a504fc2a25fb705d1e5e611/d058ccbf6c81800a99489685b03533fa838b478f.jpg");
+		uriList.add("http://119.10.27.126:8080/Upload/Banner/20150509131356_1250.jpg");
+	//	uriList.add("http://g.hiphotos.baidu.com/album/w%3D2048/sign=00d4819db8014a90813e41bd9d4f3812/562c11dfa9ec8a137de469cff603918fa0ecc026.jpg");
+	//	uriList.add("http://c.hiphotos.baidu.com/album/w%3D2048/sign=a8631adb342ac65c67056173cfcab011/b8389b504fc2d56217d11656e61190ef77c66cb4.jpg");
+	//	uriList.add("http://e.hiphotos.baidu.com/album/w%3D2048/sign=ffac8994a71ea8d38a227304a332314e/1ad5ad6eddc451da4d9d32c4b7fd5266d01632b1.jpg");
+	//	uriList.add("http://a.hiphotos.baidu.com/album/w%3D2048/sign=afbe93839a504fc2a25fb705d1e5e611/d058ccbf6c81800a99489685b03533fa838b478f.jpg");
 		rollViewPager2
 				.setDot(dots, R.drawable.dot_focus, R.drawable.dot_normal);
 
@@ -182,13 +195,13 @@ public class HomeFragment extends BaseViewPagerFragment {
 	}
 	
 	private void getHomeInfoNet(){
-		String url = getString(R.string.base_url)+"api/system/getbanner?partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
-		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
-				new Listener<TestBean>() {
+		String url = getString(R.string.base_url)+"api/system/getbanner?&partner=meilitun&sign="+MD5.getMD5("partner=meilitunlary");
+		VolleyGetRequest<BannerModel> request = new VolleyGetRequest<BannerModel>(url, BannerModel.class,
+				new Listener<BannerModel>() {
 
 					@Override
-					public void onResponse(TestBean arg0) {
-						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
+					public void onResponse(BannerModel arg0) {
+						Toast.makeText(mContext, "网络请求成功"+arg0.getMessage(), Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -211,19 +224,14 @@ public class HomeFragment extends BaseViewPagerFragment {
 				hashMap.put("contentType", "application/x-www-form-urlencoded");
 					return hashMap;
 				}
-                 @Override              
-                protected Map<String, String> getParams() throws AuthFailureError {
-                	   HashMap<String, String > map = new HashMap<String, String>();
-                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
-                	   map.put("nickname", "lary");
-                	   map.put("email", "app@qq.com");
-                	   map.put("password", "123");
-                	// map.put("contentType", "application/x-www-form-urlencoded");
-                	return map;
-                }
 		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(mContext).add(request);
+	}
+	
+	private String getMD5(String mdStr){
+		String sign =MD5.getMD5(mdStr);
+		return sign;
 	}
 
 }
