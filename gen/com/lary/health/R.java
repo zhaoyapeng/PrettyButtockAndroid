@@ -23,8 +23,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
         public static final int back=0x7f020000;
@@ -134,23 +134,24 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
+        public static final int action_settings=0x7f050002;
+        public static final int app_name=0x7f050001;
+        public static final int base_url=0x7f050000;
         /**  首页 
          */
-        public static final int first_name=0x7f060003;
-        public static final int five_name=0x7f060007;
-        public static final int four_name=0x7f060006;
-        public static final int hello_world=0x7f060002;
-        public static final int pull_to_refresh_refreshing_label=0x7f06000e;
-        public static final int second_name=0x7f060004;
-        public static final int third_name=0x7f060005;
-        public static final int xlistview_footer_hint_normal=0x7f06000c;
-        public static final int xlistview_footer_hint_ready=0x7f06000d;
-        public static final int xlistview_header_hint_loading=0x7f06000a;
-        public static final int xlistview_header_hint_normal=0x7f060008;
-        public static final int xlistview_header_hint_ready=0x7f060009;
-        public static final int xlistview_header_last_time=0x7f06000b;
+        public static final int first_name=0x7f050004;
+        public static final int five_name=0x7f050008;
+        public static final int four_name=0x7f050007;
+        public static final int hello_world=0x7f050003;
+        public static final int pull_to_refresh_refreshing_label=0x7f05000f;
+        public static final int second_name=0x7f050005;
+        public static final int third_name=0x7f050006;
+        public static final int xlistview_footer_hint_normal=0x7f05000d;
+        public static final int xlistview_footer_hint_ready=0x7f05000e;
+        public static final int xlistview_header_hint_loading=0x7f05000b;
+        public static final int xlistview_header_hint_normal=0x7f050009;
+        public static final int xlistview_header_hint_ready=0x7f05000a;
+        public static final int xlistview_header_last_time=0x7f05000c;
     }
     public static final class style {
         /** 

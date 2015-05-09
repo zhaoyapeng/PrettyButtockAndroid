@@ -1,10 +1,16 @@
 package com.lary.health.ui.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import netlib.model.HomeDirect;
+import netlib.model.TestBean;
+import netlib.net.volley.VolleyPostRequest;
+import netlib.net.volley.VolleyUtil;
 
+import com.android.volley.AuthFailureError;
 import com.lary.health.R;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
 import com.lary.health.ui.adaper.HomeFunctionAdapter;
@@ -24,6 +30,28 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.VolleyError;
+
+import netlib.model.BaseModel;
+
+import com.android.volley.Response.Listener;
+import com.lary.health.MD5Util.MD5;
+import com.lary.health.service.event.IEvent;
+import com.lary.health.service.event.cdshiEvent;
+import com.lary.health.ui.adaper.HomeAdapter;
+import com.lary.health.ui.widget.HomeViewPager;
+
+import de.greenrobot.event.EventBus;
+import android.util.Log;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RadioButton;
+
+
+
 
 /**
  * @author zhaoyapeng
@@ -134,6 +162,51 @@ public class HomeFragment extends BaseViewPagerFragment {
 		//mViewPager.setResImageIds(imageIDs);//设置res的图片id
 		rollViewPager2.setUriList(uriList);//设置网络图片的url
 		rollViewPager2.startRoll();//不调用的话不滚动
+	}
+	
+	private void getHomeInfoNet(){
+		String url = getString(R.string.base_url)+"api/system/getbanner?partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
+		VolleyPostRequest<TestBean> request = new VolleyPostRequest<TestBean>(url, TestBean.class,
+				new Listener<TestBean>() {
+
+					@Override
+					public void onResponse(TestBean arg0) {
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(mContext, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, mContext) {
+			
+			@Override
+				public Map<String, String> getHeaders()
+						throws AuthFailureError {
+					// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String,String>();
+			//	hashMap.put("Accept", "application/json");
+				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+					return hashMap;
+				}
+                 @Override              
+                protected Map<String, String> getParams() throws AuthFailureError {
+                	   HashMap<String, String > map = new HashMap<String, String>();
+                	//   map.put("sign", "7cf64073abfc6d2fd8658899ef8df676");
+                	   map.put("nickname", "lary");
+                	   map.put("email", "app@qq.com");
+                	   map.put("password", "123");
+                	// map.put("contentType", "application/x-www-form-urlencoded");
+                	return map;
+                }
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(mContext).add(request);
 	}
 
 }

@@ -1,5 +1,7 @@
 package netlib.net.volley;
 
+import android.content.Context;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -21,6 +23,7 @@ public class VolleyGetRequest<T extends BaseModel>  extends Request<T> {
 
     private final Response.Listener<T> mListener;
     private Class<T> modelClass;
+    private Context mContext;
 
     /**
      * 重新定义缓存key
@@ -49,10 +52,11 @@ public class VolleyGetRequest<T extends BaseModel>  extends Request<T> {
     }
 
     public VolleyGetRequest(String url, Class<T> modelClass, VolleySuccessListener<T> listener,
-                         Response.ErrorListener errorListener) {
+                         Response.ErrorListener errorListener,Context mContext) {
         super(Method.GET, url, errorListener);
         mListener = listener;
         this.modelClass = modelClass;
+        this.mContext =mContext;
     }
 
     private Response<T> responseWrapper;
