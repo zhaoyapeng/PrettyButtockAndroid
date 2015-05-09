@@ -49,6 +49,7 @@ import com.android.volley.Response.Listener;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
+import com.lary.health.service.model.HomeModelNet;
 import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
 
@@ -195,13 +196,13 @@ public class HomeFragment extends BaseViewPagerFragment {
 	}
 	
 	private void getHomeInfoNet(){
-		String url = getString(R.string.base_url)+"api/system/getbanner?&partner=meilitun&sign="+MD5.getMD5("partner=meilitunlary");
-		VolleyGetRequest<BannerModel> request = new VolleyGetRequest<BannerModel>(url, BannerModel.class,
-				new Listener<BannerModel>() {
 
+		String url = getString(R.string.base_url)+"api/system/getbanner?&partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
+		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(url, HomeModelNet.class,
+				new Listener<HomeModelNet>() {
 					@Override
-					public void onResponse(BannerModel arg0) {
-						Toast.makeText(mContext, "网络请求成功"+arg0.getMessage(), Toast.LENGTH_SHORT).show();
+					public void onResponse(HomeModelNet arg0) {
+						Toast.makeText(mContext, "网络请求成功"+arg0.getNetInfo().get(0).getImgurl(), Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {

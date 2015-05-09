@@ -53,8 +53,8 @@ public class VolleyGetRequest<T extends BaseModel> extends Request<T> {
 		return null;
 	}
 
-	public VolleyGetRequest(String url, Class<T> modelClass,
-			Response.Listener<T> listener,
+
+	public VolleyGetRequest(String url, Class<T> modelClass, Response.Listener<T> listener,
 			Response.ErrorListener errorListener, Context mContext) {
 		super(Method.GET, url, errorListener);
 		mListener = listener;
@@ -75,10 +75,9 @@ public class VolleyGetRequest<T extends BaseModel> extends Request<T> {
 		String parsed;
 
 		try {
-			parsed = new String(response.data,
-					HttpHeaderParser.parseCharset(response.headers));
-					responseWrapper = Response.success(
-					new Gson().fromJson(parsed, modelClass),
+			parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+			Log.e("tag", "网络请求数据1=" + parsed);
+			responseWrapper = Response.success(new Gson().fromJson(parsed.replaceAll("\\\\", "").substring(1, parsed.replaceAll("\\\\", "").length()-1), modelClass),
 					VolleyHttpHeaderParser.volleyParseCacheHeaders(response));
 			return responseWrapper;
 		} catch (UnsupportedEncodingException e) {
