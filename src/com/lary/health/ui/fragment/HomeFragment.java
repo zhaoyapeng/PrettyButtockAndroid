@@ -174,7 +174,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 	private void getHomeInfoNet() {
 
 		String url = getString(R.string.base_url)
-				+ "api/system/getbanner?&partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
+				+ "api/system/getbanner?&partner=meilitun&sign="+MD5.getMD5("partner=meilitunlary");
 		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(url, HomeModelNet.class,
 				new Listener<HomeModelNet>() {
 					@Override

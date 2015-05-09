@@ -59,7 +59,6 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 				gymnasticsBtn.setChecked(true);
 				originalBtn.setChecked(false);
 				viewPager.setCurrentItem(0, false);
-				getHomeInfoNet();
 			}
 		});
 

@@ -2,9 +2,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="原创视频" />
+    <com.lary.health.ui.widget.XListView
+        android:id="@+id/listview_riginal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00000000" >
+    </com.lary.health.ui.widget.XListView>
 
 </RelativeLayout>
