@@ -10,6 +10,7 @@ import com.lary.health.R;
 
 import android.R.integer;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.AudioManager.OnAudioFocusChangeListener;
@@ -19,6 +20,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
@@ -31,11 +33,16 @@ import android.widget.Toast;
 import android.widget.VideoView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+/**
+ * 全屏播放 接着上次播放
+ * @author du
+ *
+ */
 public class PLayVideoFullScreenActivity extends BaseFragmentActivity implements OnClickListener,OnGestureListener{
 
 	private String url="";
 	private VideoView videoView;
-	private ImageView startBt;
+	private ImageView startBt,btn_close_image;
 	private Uri mUri;
 	private ScheduledExecutorService scheduledExecutorService;
 	private View mediaControllerLayout;
@@ -70,6 +77,7 @@ public class PLayVideoFullScreenActivity extends BaseFragmentActivity implements
 		startBt = (ImageView) findViewById(R.id.playButton);
 		mediaControllerLayout = findViewById(R.id.mediaControllerLayout);
 		pbLoad = (ProgressBar) findViewById(R.id.pb_load);
+		btn_close_image = (ImageView) findViewById(R.id.btn_close_image);
 		currentTimeView = (TextView) findViewById(R.id.currentTimeView);
 		totalTimeView = (TextView) findViewById(R.id.totalTimeView);
 		videoSeekBar = (SeekBar) findViewById(R.id.videoSeekBar);
@@ -187,6 +195,7 @@ public class PLayVideoFullScreenActivity extends BaseFragmentActivity implements
 			Toast.makeText(this, "视频暂不能播放", Toast.LENGTH_SHORT)
 					.show();
 		}
+		btn_close_image.setOnClickListener(this);
 	}
 
 	private void focusForMidea(){
@@ -324,6 +333,30 @@ public class PLayVideoFullScreenActivity extends BaseFragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+		switch (v.getId()) {
+		case R.id.btn_close_image:
+			Intent in = new Intent();
+			in.putExtra("time",(int) (this.videoSeekBar.getProgress() * 1.0
+					/ videoSeekBar.getMax() * videoView.getDuration()));
+			setResult(RESULT_OK,in);
+			PLayVideoFullScreenActivity.this.finish();
+			break;
+
+		default:
+			break;
+		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent in = new Intent();
+			in.putExtra("time",(int) (this.videoSeekBar.getProgress() * 1.0
+					/ videoSeekBar.getMax() * videoView.getDuration()));
+			setResult(RESULT_OK,in);
+			PLayVideoFullScreenActivity.this.finish();
+			
+		}
+		return false;
 	}
 }

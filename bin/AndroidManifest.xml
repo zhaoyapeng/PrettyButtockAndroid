@@ -89,6 +89,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- webview详情页面 -->
         <activity
             android:name="com.lary.health.ui.DetailWebActivity"
             android:configChanges="orientation|keyboardHidden"
