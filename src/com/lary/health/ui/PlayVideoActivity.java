@@ -30,7 +30,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class PlayVideoActivity extends BaseFragmentActivity implements OnClickListener,OnGestureListener{
 	
-	private String url="http://114.113.237.28/family/./Public/Uploads/20140812/53e9bbc65e1d9.mp4";
+	private String url="http://119.10.27.126:8080/Upload/Video/健身操整体动作乐12_0.mp4";
 	private VideoView videoView;
 	private ImageView startBt;
 	private Uri mUri;

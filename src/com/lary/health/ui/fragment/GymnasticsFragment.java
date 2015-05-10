@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 /**
@@ -53,7 +55,7 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 	protected void initWidgetActions() {
 		gymnasticsList.setAdapter(adapter);
 	}
-
+	
 	@Override
 	public void onRefresh() {
 		currentPage = 1;
@@ -81,6 +83,7 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 					public void onResponse(GymnasticsListModel model) {
 						if(model.getCode()==0){
 							adapter.refreshData(model.getRows());
+							Log.d("videourl",model.getRows().get(0).getVideoUrl());
 						}
 						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
