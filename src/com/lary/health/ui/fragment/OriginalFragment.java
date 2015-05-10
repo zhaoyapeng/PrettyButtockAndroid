@@ -30,13 +30,13 @@ import android.widget.Toast;
  * @Email zhaoyp@witmob.com
  * @Description 原创视频Fragment
  */
-public class OriginalFragment extends BaseViewPagerFragment implements XListView.IXListViewListener{
+public class OriginalFragment extends BaseViewPagerFragment implements XListView.IXListViewListener {
 
 	private XListView originalListView;
 	private OriginalAdapter adapter;
 	private int currentPage = 1;
-	private int LIMIT =10;
-	
+	private int LIMIT = 10;
+
 	@Override
 	protected void initData() {
 		adapter = new OriginalAdapter(mContext);
@@ -45,29 +45,36 @@ public class OriginalFragment extends BaseViewPagerFragment implements XListView
 	@Override
 	protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_original, container, false);
-		originalListView = (XListView)view.findViewById(R.id.listview_riginal);
+		originalListView = (XListView) view.findViewById(R.id.listview_riginal);
 		return view;
 	}
 
 	@Override
 	protected void initWidgetActions() {
 		originalListView.setAdapter(adapter);
+		originalListView.setPullLoadEnable(false);
+		originalListView.setPullLoadEnable(true);
+		originalListView.setXListViewListener(this);
 	}
 
-	private void getOriginalRereshNet(int pageIndex,int pageSize) {
+	private void getOriginalRereshNet(int pageIndex, int pageSize) {
 
-		String url = getString(R.string.base_url)
-				+ "api/system/GetVideo2?partner=meilitun&pageIndex="+pageIndex+"&pageSize="+pageSize
-				+"&sign="+MD5.getMD5("pageIndex="+pageIndex+"&pageSize="+pageSize+"&partner=meilitun"+"lary");
-		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url, OriginalListModel.class,
-				new Listener<OriginalListModel>() {
+		String url = getString(R.string.base_url) + "api/system/GetVideo2?partner=meilitun&pageIndex=" + pageIndex
+				+ "&pageSize=" + pageSize + "&sign="
+				+ MD5.getMD5("pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&partner=meilitun" + "lary");
+		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url,
+				OriginalListModel.class, new Listener<OriginalListModel>() {
 					@Override
 					public void onResponse(OriginalListModel model) {
-						if(model.getCode()==0){
+						if (model.getCode() == 0) {
 							adapter.refreshData(model.getRows());
+							if (model.getTotalpage().equals(model.getCurpage())) {
+								originalListView.setPullLoadEnable(false);
+							} else {
+								originalListView.setPullLoadEnable(true);
+							}
 						}
-						Toast.makeText(mContext, "网络请求成功" , Toast.LENGTH_SHORT)
-								.show();
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -95,21 +102,25 @@ public class OriginalFragment extends BaseViewPagerFragment implements XListView
 		VolleyUtil.getQueue(mContext).add(request);
 	}
 
-	private void getOriginalAddNet(int pageIndex,int pageSize) {
+	private void getOriginalAddNet(int pageIndex, int pageSize) {
 
-		String url = getString(R.string.base_url)
-				+ "api/system/GetVideo2?partner=meilitun&pageIndex="+pageIndex+"&pageSize="+pageSize
-				+"&sign="+MD5.getMD5("pageIndex="+pageIndex+"&pageSize="+pageSize+"&partner=meilitun"+"lary");
-		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url, OriginalListModel.class,
-				new Listener<OriginalListModel>() {
+		String url = getString(R.string.base_url) + "api/system/GetVideo2?partner=meilitun&pageIndex=" + pageIndex
+				+ "&pageSize=" + pageSize + "&sign="
+				+ MD5.getMD5("pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&partner=meilitun" + "lary");
+		VolleyGetRequest<OriginalListModel> request = new VolleyGetRequest<OriginalListModel>(url,
+				OriginalListModel.class, new Listener<OriginalListModel>() {
 					@Override
 					public void onResponse(OriginalListModel model) {
-						if(model.getCode()==0){
+						if (model.getCode() == 0) {
 							adapter.addData(model.getRows());
+							if (model.getTotalpage().equals(model.getCurpage())) {
+								originalListView.setPullLoadEnable(false);
+							} else {
+								originalListView.setPullLoadEnable(true);
+							}
 						}
-						
-						Toast.makeText(mContext, "网络请求成功" , Toast.LENGTH_SHORT)
-								.show();
+
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -136,23 +147,23 @@ public class OriginalFragment extends BaseViewPagerFragment implements XListView
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(mContext).add(request);
 	}
-	
+
 	@Override
 	public void onRefresh() {
-		currentPage =1;
+		currentPage = 1;
 		getOriginalRereshNet(currentPage, LIMIT);
 	}
 
 	@Override
 	public void onLoadMore() {
 		currentPage++;
-		getOriginalAddNet(currentPage, LIMIT);		
+		getOriginalAddNet(currentPage, LIMIT);
 	}
 
 	@Override
 	protected void refreshData() {
-		currentPage=1;
-		getOriginalRereshNet(currentPage, LIMIT);		
+		currentPage = 1;
+		getOriginalRereshNet(currentPage, LIMIT);
 	}
 
 }
