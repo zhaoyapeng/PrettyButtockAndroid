@@ -1,5 +1,7 @@
 package com.lary.health.service.model;
 
+import java.io.Serializable;
+
 import netlib.model.BaseModel;
 
 /**
@@ -8,7 +10,7 @@ import netlib.model.BaseModel;
  * @Email zhaoyp@witmob.com
  * @Description 垫上美操 item model
  */
-public class GymnasticsListItemModel extends BaseModel {
+public class GymnasticsListItemModel extends BaseModel implements Serializable{
 	/**
 	 * 
 	 */
