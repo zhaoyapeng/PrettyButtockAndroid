@@ -15,9 +15,12 @@ import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.GymnasticsListModel;
 import com.lary.health.service.model.HomeModelNet;
+import com.lary.health.ui.PlayVideoActivity;
 import com.lary.health.ui.widget.XListView;
 
 import GymnasticsListItemModel.GymnasticeAdapter;
+import GymnasticsListItemModel.GymnasticeAdapter.ViewHolder;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +57,15 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 	@Override
 	protected void initWidgetActions() {
 		gymnasticsList.setAdapter(adapter);
+		gymnasticsList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ViewHolder holder = (ViewHolder)view.getTag();
+				Intent intent = new Intent(mContext,PlayVideoActivity.class);
+				intent.putExtra("GymnasticsListItemModel", holder.model);
+			}
+		});
 	}
 	
 	@Override

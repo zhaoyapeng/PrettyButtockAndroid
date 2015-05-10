@@ -74,6 +74,7 @@ public class GymnasticeAdapter extends BaseAdapter {
 	public class ViewHolder {
 		private ImageView gyImg;
 		private TextView titleText, sizeText;
+		public GymnasticsListItemModel model;
 
 		public ViewHolder(View view) {
 			gyImg = (ImageView)view.findViewById(R.id.img_gymnastics);
@@ -82,8 +83,10 @@ public class GymnasticeAdapter extends BaseAdapter {
 		}
 		
 		public void update(GymnasticsListItemModel model){
-			imageLoader.displayImage(mContext.getResources().getString(R.string.base_url)+model.getImgUrl(), gyImg,avatarOptions);
-			titleText.setText(model.getName());
+
+			this.model = model;
+			imageLoader.displayImage(model.getImgUrl(), gyImg,avatarOptions);
+			titleText.setText(model.getIntruduce());
 		}
 	}
 	
