@@ -64,6 +64,7 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 				ViewHolder holder = (ViewHolder)view.getTag();
 				Intent intent = new Intent(mContext,PlayVideoActivity.class);
 				intent.putExtra("GymnasticsListItemModel", holder.model);
+				startActivity(intent);
 			}
 		});
 	}
