@@ -17,6 +17,7 @@ import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.HomeModelNet;
 import com.lary.health.ui.BaseFragmentActivity;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,6 +72,8 @@ public class LoginActivity extends BaseFragmentActivity implements OnClickListen
 			login();
 			break;
 		case R.id.regester_tv:
+			Intent registerIn = new Intent(LoginActivity.this,RegesterActivity.class);
+			startActivity(registerIn);
 			break;
 		default:
 			break;
