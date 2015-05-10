@@ -3,38 +3,40 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="1" >
-    <FrameLayout 
+
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-       android:layout_weight="0.45"
-        >
+        android:layout_weight="0.45"
+        android:background="@android:color/black" >
 
-    <VideoView
-        android:id="@+id/my_video_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        <VideoView
+            android:id="@+id/my_video_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" />
 
-    <ImageButton
-		android:background="@android:color/transparent"
-        android:id="@+id/btn_close_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/back"
-        android:contentDescription="@string/app_name" />
-    <ProgressBar 
-	    android:id="@+id/pb_load"
-	    android:layout_gravity="center"
-	    android:indeterminateDrawable="@drawable/progressbar_bg"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"/>
+        <ImageButton
+            android:id="@+id/btn_close_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
 
-   <RelativeLayout
+        <ProgressBar
+            android:id="@+id/pb_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/progressbar_bg" />
+
+        <RelativeLayout
             android:id="@+id/mediaControllerLayout"
-            android:layout_gravity="bottom"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@drawable/mv_controll_bg" >
 
             <ImageButton
@@ -48,15 +50,15 @@
 
             <TextView
                 android:id="@+id/currentTimeView"
-                android:layout_toRightOf="@+id/playButton"
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/playButton"
+                android:text="00:00:00"
                 android:textColor="#ffffff"
-                android:text="00:00:00" />
-            
+                android:textSize="15sp" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -68,27 +70,79 @@
 
                 <SeekBar
                     android:id="@+id/videoSeekBar"
-                    android:max="100"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:focusable="false"
+                    android:max="100"
                     android:progressDrawable="@drawable/mv_seekbar_style"
                     android:thumb="@drawable/mv_seekbar_progress"
-                    android:thumbOffset="2dp"
-                    android:focusable="false" />
+                    android:thumbOffset="2dp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/totalTimeView"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textSize="15sp"
+                android:layout_marginRight="10dp"
+                android:text="00:00:00"
                 android:textColor="#ffffff"
-                android:text="00:00:00" />
-
+                android:textSize="15sp" />
         </RelativeLayout>
-        </FrameLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <ImageView
+            android:id="@+id/share_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/shoucang" />
+
+        <ImageView
+            android:id="@+id/down_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/download" />
+
+        <ImageView
+            android:id="@+id/music_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/shoucang" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="视频简介"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/video_introudce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="" />
+    </LinearLayout>
+
 </LinearLayout>

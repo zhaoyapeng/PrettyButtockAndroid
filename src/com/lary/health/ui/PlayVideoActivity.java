@@ -6,8 +6,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.lary.health.R;
+import com.lary.health.service.model.GymnasticsListItemModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.AudioManager.OnAudioFocusChangeListener;
@@ -30,7 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class PlayVideoActivity extends BaseFragmentActivity implements OnClickListener,OnGestureListener{
 	
-	private String url="http://119.10.27.126:8080/Upload/Video/健身操整体动作乐12_0.mp4";
+	private String url;
 	private VideoView videoView;
 	private ImageView startBt;
 	private Uri mUri;
@@ -41,18 +50,32 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 	private ProgressBar pbLoad;
 	private TextView currentTimeView;
 	private TextView totalTimeView;
+	private TextView video_introudce;
 	private Handler handler;
 	private int mPositionWhenPaused = -1;
+	private GymnasticsListItemModel gymMode;
+	private ImageLoader imageLoader;
+	private DisplayImageOptions avatarOptions;
+	private ImageView music_iv;
 
 	//private 
 	@Override
 	protected void initData() {
 		// TODO Auto-generated method stub
-		mUri = Uri.parse(url);
+		
+		imageLoader = ImageLoader.getInstance();
+		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
+				.imageScaleType(ImageScaleType.EXACTLY).build();
 		this.scheduledExecutorService = Executors.newScheduledThreadPool(2);
 
 		this.gestureDetector = new GestureDetector(PlayVideoActivity.this);
 		this.handler = new Handler();
+		gymMode = (GymnasticsListItemModel) getIntent().getSerializableExtra("GymnasticsListItemModel");
+		url = PlayVideoActivity.this.getResources().getString(R.string.base_url)+gymMode.getVideoUrl();
+		mUri = Uri.parse(url);
+
 	}
 
 	@Override
@@ -66,6 +89,12 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 		currentTimeView = (TextView) findViewById(R.id.currentTimeView);
 		totalTimeView = (TextView) findViewById(R.id.totalTimeView);
 		videoSeekBar = (SeekBar) findViewById(R.id.videoSeekBar);
+		video_introudce = (TextView) findViewById(R.id.video_introudce);
+		music_iv = (ImageView) findViewById(R.id.music_iv);
+		Bitmap bitmap = ImageLoader.getInstance().loadImageSync(PlayVideoActivity.this.getResources().getString(R.string.base_url)+gymMode.getImgUrl());
+		 Drawable drawable =new BitmapDrawable(bitmap);
+		 videoView.setBackgroundDrawable(drawable);
+		// pbLoad.setVisibility(View.GONE);
 		videoSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
@@ -87,7 +116,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 				
 			}
 		});
-		startBt.setImageResource(R.drawable.mv_pause_button);
+		//startBt.setImageResource(R.drawable.mv_pause_button);
 		startBt.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -97,6 +126,9 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 					videoView.pause();
 					startBt.setImageResource(R.drawable.mv_start_button);
 				} else {
+					 videoView.setBackgroundDrawable(null);
+				//	pbLoad.setVisibility(View.VISIBLE);
+					videoView.requestFocus();
 					videoView.start();
 					startBt.setImageResource(R.drawable.mv_pause_button);
 				}
@@ -168,15 +200,19 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 	protected void initWidgetAciotns() {
 		// TODO Auto-generated method stub
 		focusForMidea();
-		if (videoView != null && mUri != null) {
-			pbLoad.setVisibility(View.VISIBLE);
+
+		 if (videoView != null && mUri != null) {
+		//	pbLoad.setVisibility(View.VISIBLE);
 			videoView.setVideoURI(mUri);
-			videoView.requestFocus();
-			videoView.start();
+			//videoView.requestFocus();
+			//videoView.start();
 		} else {
 			Toast.makeText(this, "视频无法播放", Toast.LENGTH_SHORT)
 					.show();
 		}
+		
+		video_introudce.setText(gymMode.getIntruduce());
+		music_iv.setOnClickListener(this);
 	}
 
 	@Override
@@ -186,7 +222,14 @@ public class PlayVideoActivity extends BaseFragmentActivity implements OnClickLi
 		case R.id.playButton:
 			
 			break;
-
+		case R.id.music_iv:
+			int time = (int) (this.videoSeekBar.getProgress() * 1.0
+					/ videoSeekBar.getMax() * videoView.getDuration());
+			Intent fullIn  = new Intent(PlayVideoActivity.this,PLayVideoFullScreenActivity.class);
+			fullIn.putExtra("time", time);
+			fullIn.putExtra("url", url);
+			startActivityForResult(fullIn,1);
+			break;
 		default:
 			break;
 		}

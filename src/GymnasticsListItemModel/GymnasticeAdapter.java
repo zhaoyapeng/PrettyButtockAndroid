@@ -85,8 +85,8 @@ public class GymnasticeAdapter extends BaseAdapter {
 		public void update(GymnasticsListItemModel model){
 
 			this.model = model;
-			imageLoader.displayImage(model.getImgUrl(), gyImg,avatarOptions);
-			titleText.setText(model.getIntruduce());
+			imageLoader.displayImage(mContext.getResources().getString(R.string.base_url)+model.getImgUrl(), gyImg,avatarOptions);
+			titleText.setText(model.getName());
 		}
 	}
 	
