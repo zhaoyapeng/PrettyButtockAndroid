@@ -8,7 +8,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
         />
-
+        <ImageButton
+            android:id="@+id/btn_close_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
     <ProgressBar 
 	    android:id="@+id/pb_load"
 	    android:layout_gravity="center"

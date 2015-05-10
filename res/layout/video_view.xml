@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:background="#00000000"
                 android:src="@drawable/mv_start_button" />
 
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/playButton"
                 android:text="00:00:00"
                 android:textColor="#ffffff"
@@ -63,9 +63,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:layout_marginRight="5dip"
-                android:layout_toLeftOf="@+id/totalTimeView"
+                android:layout_toLeftOf="@+id/totalTim"
                 android:layout_toRightOf="@+id/currentTimeView" >
 
                 <SeekBar
@@ -80,16 +78,31 @@
                     android:thumbOffset="2dp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/totalTimeView"
+            <LinearLayout
+                android:id="@+id/totalTim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:text="00:00:00"
-                android:textColor="#ffffff"
-                android:textSize="15sp" />
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/totalTimeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00:00"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15sp" />
+                <ImageView
+                android:id="@+id/fuulscreen_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/totalTimeView"
+                android:src="@drawable/fullscreen" />
+            </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
 
@@ -106,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/shoucang" />
+            android:src="@drawable/share" />
 
         <ImageView
             android:id="@+id/down_iv"
@@ -120,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/shoucang" />
+            android:src="@drawable/musiclist" />
     </LinearLayout>
 
     <LinearLayout
