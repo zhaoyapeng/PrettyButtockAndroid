@@ -7,6 +7,14 @@
 
     <!-- 登录 注册 -->
     <string name="login_title">我</string>
+    <string name="register_title">注册</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_pwd">密码</string>
+    <string name="register_repwd">确认密码</string>
+    <string name="register_qq">QQ</string>
+    <string name="register_phone">电话</string>
+    <string name="register_address">地址</string>
+    <string name="register_nickname">昵称</string>
 
     <!-- 首页 -->
     <string name="first_name">首页</string>
