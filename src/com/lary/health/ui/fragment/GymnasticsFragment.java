@@ -67,6 +67,9 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 				startActivity(intent);
 			}
 		});
+		gymnasticsList.setXListViewListener(this);
+		gymnasticsList.setPullRefreshEnable(true);
+		gymnasticsList.setPullRefreshEnable(false);
 	}
 	
 	@Override
@@ -96,6 +99,11 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 					public void onResponse(GymnasticsListModel model) {
 						if(model.getCode()==0){
 							adapter.refreshData(model.getRows());
+							if(model.getTotalpage().equals(model.getCurpage())){
+								gymnasticsList.setPullLoadEnable(false);
+							}else{
+								gymnasticsList.setPullLoadEnable(true);
+							}
 							Log.d("videourl",model.getRows().get(0).getVideoUrl());
 						}
 						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
@@ -141,6 +149,11 @@ public class GymnasticsFragment extends BaseViewPagerFragment implements XListVi
 					public void onResponse(GymnasticsListModel model) {
 						if(model.getCode()==0){
 							adapter.addData(model.getRows());
+							if(model.getTotalpage().equals(model.getCurpage())){
+								gymnasticsList.setPullLoadEnable(false);
+							}else{
+								gymnasticsList.setPullLoadEnable(true);
+							}
 						}
 						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}

@@ -91,9 +91,11 @@ public class OriginalAdapter extends BaseAdapter{
 	public void refreshData(List<OriginalItemModel> list){
 		this.list.clear();
 		this.list.addAll(list);
+		notifyDataSetChanged();
 	}
 	
 	public void addData(List<OriginalItemModel> list){
 		this.list.addAll(list);
+		notifyDataSetChanged();
 	}
 }

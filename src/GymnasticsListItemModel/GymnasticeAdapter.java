@@ -93,10 +93,12 @@ public class GymnasticeAdapter extends BaseAdapter {
 	public void refreshData(List<GymnasticsListItemModel> list){
 		this.list.clear();
 		this.list.addAll(list);
+		notifyDataSetChanged();
 	}
 	
 	public void addData(List<GymnasticsListItemModel> list){
 		this.list.addAll(list);
+		notifyDataSetChanged();
 	}
 
 }
