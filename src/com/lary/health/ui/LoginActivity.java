@@ -15,6 +15,7 @@ import com.android.volley.Response.Listener;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.HomeModelNet;
+import com.lary.health.service.model.UserInfoModelNet;
 import com.lary.health.ui.BaseFragmentActivity;
 
 import android.content.Intent;
@@ -93,11 +94,11 @@ public class LoginActivity extends BaseFragmentActivity implements OnClickListen
 			type = "1";
 		}
 		String url = getString(R.string.base_url)+"api/system/Login?partner=meilitun&sign="+MD5.getMD5("name="+userName+"&partner=meilitun&password="+passWord+"&type="+type+"lary")+"&name="+userName+"&password="+passWord+"&type="+type;
-		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(url, HomeModelNet.class,
-				new Listener<HomeModelNet>() {
+		VolleyGetRequest<UserInfoModelNet> request = new VolleyGetRequest<UserInfoModelNet>(url, UserInfoModelNet.class,
+				new Listener<UserInfoModelNet>() {
 					@Override
-					public void onResponse(HomeModelNet arg0) {
-						Toast.makeText(LoginActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
+					public void onResponse(UserInfoModelNet arg0) {
+						Toast.makeText(LoginActivity.this, "网络请求成功"+arg0.getUserInfo().get(0).getNickname(), Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
