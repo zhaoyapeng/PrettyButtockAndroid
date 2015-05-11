@@ -6,6 +6,8 @@ import java.util.Map;
 import netlib.model.BaseModel;
 import netlib.net.volley.VolleyPostRequest;
 import netlib.net.volley.VolleyUtil;
+import netlib.util.TextUtil;
+import android.content.Intent;
 import android.media.AudioRecord.OnRecordPositionUpdateListener;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -79,12 +81,34 @@ public class RegesterActivity extends BaseFragmentActivity implements OnClickLis
 		final String address = address_ed.getText().toString().trim();
 		final String url = getResources().getString(R.string.base_url)+"api/system/register?partner=meilituan&sign="+MD5.getMD5("partner=meilituan&address="+address+"&email="+email+"&mobile="+phoneNum+"&nickname="+nickName+"&password="+pwd+"&qq="+qq+"lary");
 
+		if(TextUtil.isEmpty(nickName)){
+			Toast.makeText(RegesterActivity.this, "请填写昵称", 0).show();
+			return;
+		}
+		if(TextUtil.isEmpty(email)){
+			Toast.makeText(RegesterActivity.this, "请填写邮箱", 0).show();
+			return;
+		}
+		if(TextUtil.isEmpty(pwd)){
+			Toast.makeText(RegesterActivity.this, "请填写密码", 0).show();
+			return;
+		}
+		if(TextUtil.isEmpty(repwd)){
+			Toast.makeText(RegesterActivity.this, "请填写确认密码", 0).show();
+			return;
+		}
+		if(!pwd.equals(repwd)){
+			Toast.makeText(RegesterActivity.this, "两次密码不一致", 0).show();
+			return;
+		}
 		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class, new Listener<BaseModel>() {
 
 			@Override
 			public void onResponse(BaseModel arg0) {
 				// TODO Auto-generated method stub
 				Toast.makeText(RegesterActivity.this, "注册成功", 1).show();
+				Intent reIn = new Intent(RegesterActivity.this,HomeActivity.class);
+				startActivity(reIn);
 			}
 			
 		}, new Response.ErrorListener() {

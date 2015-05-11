@@ -98,7 +98,12 @@ public class LoginActivity extends BaseFragmentActivity implements OnClickListen
 				new Listener<UserInfoModelNet>() {
 					@Override
 					public void onResponse(UserInfoModelNet arg0) {
-						Toast.makeText(LoginActivity.this, "网络请求成功"+arg0.getUserInfo().get(0).getNickname(), Toast.LENGTH_SHORT).show();
+						if(arg0.getCode() != 0){
+							Toast.makeText(LoginActivity.this, arg0.getMessage(), Toast.LENGTH_SHORT).show();
+						}else{
+						Intent reIn = new Intent(LoginActivity.this,HomeActivity.class);
+						startActivity(reIn);
+						}
 					}
 
 				}, new ErrorListener() {
@@ -106,7 +111,7 @@ public class LoginActivity extends BaseFragmentActivity implements OnClickListen
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
 						Log.e("tag", "VolleyError" + arg0);
-						Toast.makeText(LoginActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+						Toast.makeText(LoginActivity.this, "网络请求失败了" + arg0.getMessage(), Toast.LENGTH_SHORT).show();
 					}
 
 				}, LoginActivity.this) {
