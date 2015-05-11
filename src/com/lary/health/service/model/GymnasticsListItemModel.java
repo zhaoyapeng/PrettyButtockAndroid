@@ -18,6 +18,15 @@ public class GymnasticsListItemModel extends BaseModel implements Serializable{
 	private String Id;
 	private String ImgUrl;
 	private String VideoUrl;
+	private String AudioUrl;
+	public String getAudioUrl() {
+		return AudioUrl;
+	}
+
+	public void setAudioUrl(String audioUrl) {
+		AudioUrl = audioUrl;
+	}
+
 	private String Name;
 	private String Intruduce;
 

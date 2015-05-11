@@ -30,10 +30,10 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/tab_selector_home"
+                android:drawableTop="@drawable/tab_music_five"
                 android:gravity="center_horizontal"
                 android:text="@string/first_music_name"
-                android:textColor="@drawable/color_selector"
+                android:textColor="@drawable/music_color_selector"
                 android:textSize="13sp" />
 
             <RadioButton
@@ -43,10 +43,10 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/tab_selector_faxain"
+                android:drawableTop="@drawable/tab_music_condition"
                 android:gravity="center_horizontal"
                 android:text="@string/second_music_name"
-                android:textColor="@drawable/color_selector"
+                android:textColor="@drawable/music_color_selector"
                 android:textSize="13sp" />
 
             <RadioButton
@@ -56,10 +56,10 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/tab_selector_circle"
+                android:drawableTop="@drawable/tab_music_orginal"
                 android:gravity="center_horizontal"
                 android:text="@string/third_music_name"
-                android:textColor="@drawable/color_selector"
+                android:textColor="@drawable/music_color_selector"
                 android:textSize="13sp" />
 
             <RadioButton
@@ -69,10 +69,10 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/tab_selector_persion"
+                android:drawableTop="@drawable/tab_music_make"
                 android:gravity="center_horizontal"
                 android:text="@string/four_music_name"
-                android:textColor="@drawable/color_selector"
+                android:textColor="@drawable/music_color_selector"
                 android:textSize="13sp" />
 
             <RadioButton
@@ -82,10 +82,10 @@
                 android:layout_weight="1"
                 android:button="@null" 
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/tab_selector_persion"
+                android:drawableTop="@drawable/tab_music_precteption"
                 android:gravity="center_horizontal"
                 android:text="@string/five_music_name"
-                android:textColor="@drawable/color_selector"
+                android:textColor="@drawable/music_color_selector"
                 android:textSize="13sp" />
         </RadioGroup>
     </LinearLayout>

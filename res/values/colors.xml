@@ -1,4 +1,6 @@
 
     <resources>
         <color name="grey">#c0c0c0 </color>
+        <color name="grey_60">#4C4C4C</color>
+        <color name="grey_80">#D3D2D7</color>
     </resources>

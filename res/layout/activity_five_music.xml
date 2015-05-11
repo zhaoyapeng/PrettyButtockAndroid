@@ -3,8 +3,83 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView 
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/back_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:drawableLeft="@drawable/back"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="首页"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/music_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="五行音乐"/>
+        android:layout_margin="10dp">
+        <TextView 
+            android:id="@+id/music_small_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/earphone"
+            android:textSize="16sp"
+            android:drawablePadding="5dp"
+            android:text=""/>
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center">
+            <TextView 
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="15dp"
+                android:background="@color/grey_60"/>
+            
+            <TextView 
+                android:id="@+id/zhuanji_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专辑"
+                android:textSize="18sp"/>
+            <ImageView 
+                android:id="@+id/ori_music_uplod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/upload"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_80"/>
+        <com.lary.health.ui.widget.XListView
+        android:id="@+id/listview_music"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:background="#00000000" >
+    </com.lary.health.ui.widget.XListView>
 </LinearLayout>
