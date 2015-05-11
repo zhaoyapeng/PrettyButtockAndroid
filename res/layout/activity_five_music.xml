@@ -62,13 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="专辑"
+                android:visibility="gone"
                 android:textSize="18sp"/>
             <ImageView 
                 android:id="@+id/ori_music_uplod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:src="@drawable/upload"/>
+                android:visibility="visible"
+                android:src="@drawable/music_upload"/>
         </LinearLayout>
     </RelativeLayout>
     <TextView 

@@ -12,23 +12,37 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
+import com.lary.health.musicListModel.MusicListAdapter;
 import com.lary.health.service.model.GymnasticsListModel;
+import com.lary.health.ui.PlayVideoActivity;
+import com.lary.health.ui.widget.XListView;
 
+import GymnasticsListItemModel.GymnasticeAdapter.ViewHolder;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 
  * @author du 五行音乐
  */
-public class FiveMusicFragment extends BaseViewPagerFragment {
+public class FiveMusicFragment extends BaseViewPagerFragment implements XListView.IXListViewListener{
 	private int index;
-	private TextView music_title, music_back,music_small_title;
+	private TextView music_title, music_back, music_small_title, zhuanji_tv;
+	private ImageView ori_music_uplod;
+	private MusicListAdapter adapter;
+	private XListView listview_music;
+	private int currentPage = 1;
+	private int LIMIT = 10;
+
 
 	public static FiveMusicFragment getInstance(int index) {
 		FiveMusicFragment q = new FiveMusicFragment();
@@ -40,6 +54,7 @@ public class FiveMusicFragment extends BaseViewPagerFragment {
 
 	@Override
 	protected void initData() {
+		adapter = new MusicListAdapter(getActivity());
 	}
 
 	@Override
@@ -50,14 +65,30 @@ public class FiveMusicFragment extends BaseViewPagerFragment {
 				false);
 		music_title = (TextView) view.findViewById(R.id.music_title_tv);
 		music_back = (TextView) view.findViewById(R.id.back_tv);
-		music_small_title = (TextView) view.findViewById(R.id.music_small_title);
+		music_small_title = (TextView) view
+				.findViewById(R.id.music_small_title);
+		zhuanji_tv = (TextView) view.findViewById(R.id.zhuanji_tv);
+		ori_music_uplod = (ImageView) view.findViewById(R.id.ori_music_uplod);
+		listview_music = (XListView) view.findViewById(R.id.listview_music);
 		return view;
 	}
 
 	@Override
 	protected void initWidgetActions() {
 		// TODO Auto-generated method stub
+		listview_music.setAdapter(adapter);
+/*		listview_music.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ViewHolder holder = (ViewHolder)view.getTag();
+				 Log.d("name", holder.model.getName());
+		
+			}
+		});*/
+		listview_music.setXListViewListener(this);
+		listview_music.setPullRefreshEnable(true);
+		listview_music.setPullRefreshEnable(false);
 	}
 
 	public void getMusicList(int pageIndex, int pageSize, int index) {
@@ -79,13 +110,14 @@ public class FiveMusicFragment extends BaseViewPagerFragment {
 					@Override
 					public void onResponse(GymnasticsListModel model) {
 						if (model.getCode() == 0) {
-							// adapter.refreshData(model.getRows());
-						//	 if(model.getTotalpage().equals(model.getCurpage())){
-						//	 gymnasticsList.setPullLoadEnable(false);
-						//	 }else{
-						//	 gymnasticsList.setPullLoadEnable(true);
-						//	 }
-							 Log.d("musicurl",model.getRows().get(0).getAudioUrl());
+							 adapter.refreshData(model.getRows());
+							 if(model.getTotalpage().equals(model.getCurpage())){
+								 listview_music.setPullLoadEnable(false);
+							 }else{
+								 listview_music.setPullLoadEnable(true);
+							 }
+							Log.d("musicurl", model.getRows().get(0)
+									.getAudioUrl());
 						}
 						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT)
 								.show();
@@ -125,25 +157,30 @@ public class FiveMusicFragment extends BaseViewPagerFragment {
 		case 0:
 			music_title.setText("五行音乐");
 			music_small_title.setText("五行音乐");
+			isVisiiable(true);
 			break;
 		case 1:
 			music_title.setText("音乐调理");
 			music_small_title.setText("音乐调理");
+			isVisiiable(true);
 
 			break;
 		case 2:
 			music_title.setText("原创音乐");
 			music_small_title.setText("原创音乐");
+			isVisiiable(false);
 
 			break;
 		case 3:
 			music_title.setText("美丽臀制造");
 			music_small_title.setText("美丽臀制造");
+			isVisiiable(true);
 
 			break;
 		case 4:
 			music_title.setText("音乐处方");
 			music_small_title.setText("音乐处方");
+			isVisiiable(true);
 
 			break;
 		default:
@@ -152,4 +189,25 @@ public class FiveMusicFragment extends BaseViewPagerFragment {
 		getMusicList(1, 5, index + 1);
 	}
 
+	public void isVisiiable(boolean isvis) {
+		if (isvis) {
+			zhuanji_tv.setVisibility(View.VISIBLE);
+			ori_music_uplod.setVisibility(View.GONE);
+		} else {
+			zhuanji_tv.setVisibility(View.GONE);
+			ori_music_uplod.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		
+	}
 }
