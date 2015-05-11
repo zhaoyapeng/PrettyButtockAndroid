@@ -1,5 +1,6 @@
 package com.lary.health.ui.adaper;
 
+import com.lary.health.ui.fragment.FiveMusicFragment;
 import com.lary.health.ui.util.MusicHealthUtil;
 
 import android.support.v4.app.Fragment;
@@ -15,8 +16,7 @@ public class MusicHealthAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public Fragment getItem(int arg0) {
-		// TODO Auto-generated method stub
-		return MusicHealthUtil.getFragment(arg0);
+		return FiveMusicFragment.getInstance(arg0);
 	}
 
 	@Override
