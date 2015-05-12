@@ -19,8 +19,8 @@
     <!-- 首页 -->
     <string name="first_name">首页</string>
     <string name="second_name">最新</string>
-    <string name="third_name">美丽圈</string>
-    <string name="four_name">商城</string>
+    <string name="third_name">发现</string>
+    <string name="four_name">美丽圈</string>
     <string name="five_name">个人中心</string>
 
     <!-- 个人中心 -->
