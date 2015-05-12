@@ -30,8 +30,9 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener,
 			+ "music/";*/
 
 	private String state;
+	private static Player player;
 	// ��ʼ��������
-	public Player(SeekBar seekBar) {
+	public Player() {
 		super();
 		//this.seekBar = seekBar;
 		try {
@@ -46,6 +47,14 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener,
 	//	mTimer.schedule(timerTask, 0, 1000);
 	}
 
+	public static Player getintence(){
+		if(player == null){
+			player = new Player();
+		}
+		return player;
+	}
+	
+	
 	// ��ʱ��
 	TimerTask timerTask = new TimerTask() {
 
@@ -107,10 +116,12 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener,
 	public void stop() {
 		if (mediaPlayer != null) {
 			mediaPlayer.stop();
-			mediaPlayer.release();
-			mediaPlayer = null;
+			//mediaPlayer.release();
+			mediaPlayer.reset();
+		//	mediaPlayer = null;
 		}
 	}
+	
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {

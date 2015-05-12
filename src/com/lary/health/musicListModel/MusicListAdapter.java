@@ -50,6 +50,11 @@ public class MusicListAdapter extends BaseAdapter {
 				.cacheOnDisk(true).considerExifParams(true)
 				.displayer(new SimpleBitmapDisplayer())
 				.imageScaleType(ImageScaleType.EXACTLY).build();
+//		player = Player.getintence();
+//		if(player != null){
+//			player.stop();
+//			player = null;
+//		}
 	}
 
 	@Override
@@ -174,7 +179,7 @@ public class MusicListAdapter extends BaseAdapter {
 				player.stop();
 				player = null;
 			}else{
-				player = new Player(null);
+				player = Player.getintence();
 
 				new Thread(new Runnable() {
 

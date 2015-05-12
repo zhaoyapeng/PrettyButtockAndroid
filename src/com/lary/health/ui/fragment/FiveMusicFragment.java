@@ -80,14 +80,14 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 	protected void initWidgetActions() {
 		// TODO Auto-generated method stub
 		listview_music.setAdapter(adapter);
-		listview_music.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				holder = (ViewHolder)view.getTag();
-			
-			}
-		});
+//		listview_music.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				holder = (ViewHolder)view.getTag();
+//			
+//			}
+//		});
 		listview_music.setXListViewListener(this);
 		listview_music.setPullRefreshEnable(true);
 		listview_music.setPullRefreshEnable(false);
@@ -224,4 +224,13 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 		adapter.stopPLay();
 	}
 
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		if(adapter != null)
+		adapter.stopPLay();
+	}
+	
 }
