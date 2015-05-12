@@ -66,12 +66,14 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <!-- 音乐养生 -->
+        <!-- 原创音乐 -->
         <activity
             android:name=".ui.MusicHealthActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 音乐养生 -->
+        <activity android:name=".ui.MusicAndHealthActivity"></activity>
         <!-- 登录页面 -->
         <activity
             android:name=".ui.LoginActivity"
