@@ -5,6 +5,8 @@ import java.util.Map;
 
 import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyUtil;
+import netlib.util.StringUtil;
+import netlib.util.TextUtil;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
@@ -42,6 +44,7 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 	private XListView listview_music;
 	private int currentPage = 1;
 	private int LIMIT = 10;
+	private ViewHolder holder;
 
 
 	public static FiveMusicFragment getInstance(int index) {
@@ -77,15 +80,14 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 	protected void initWidgetActions() {
 		// TODO Auto-generated method stub
 		listview_music.setAdapter(adapter);
-/*		listview_music.setOnItemClickListener(new OnItemClickListener() {
+		listview_music.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				ViewHolder holder = (ViewHolder)view.getTag();
-				 Log.d("name", holder.model.getName());
-		
+				holder = (ViewHolder)view.getTag();
+			
 			}
-		});*/
+		});
 		listview_music.setXListViewListener(this);
 		listview_music.setPullRefreshEnable(true);
 		listview_music.setPullRefreshEnable(false);
@@ -110,14 +112,17 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 					@Override
 					public void onResponse(GymnasticsListModel model) {
 						if (model.getCode() == 0) {
+							
 							 adapter.refreshData(model.getRows());
+							 if(TextUtil.isEmpty(model.getTotalpage())||TextUtil.isEmpty(model.getCurpage())){
+								 return;
+							 }
 							 if(model.getTotalpage().equals(model.getCurpage())){
 								 listview_music.setPullLoadEnable(false);
 							 }else{
 								 listview_music.setPullLoadEnable(true);
 							 }
-							Log.d("musicurl", model.getRows().get(0)
-									.getAudioUrl());
+
 						}
 						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT)
 								.show();
@@ -210,4 +215,13 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if(adapter != null)
+		adapter.stopPLay();
+	}
+
 }

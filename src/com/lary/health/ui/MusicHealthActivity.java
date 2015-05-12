@@ -1,6 +1,9 @@
 package com.lary.health.ui;
 
+import netlib.util.Player;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +32,6 @@ public class MusicHealthActivity extends BaseFragmentActivity implements
 	private final static int TYPE_PRESCREPTIONMUSIC = 4;
 	private RadioButton btn_five_music, btn_condition_music,
 			btn_original_music, btn_make_music, btn_prescription_music;
-
 	@Override
 	protected void initData() {
 		// TODO Auto-generated method stub
@@ -93,5 +95,16 @@ public class MusicHealthActivity extends BaseFragmentActivity implements
 		}
 
 	}
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, arg1, arg2);
+	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+	//	if()
+		return super.onKeyDown(keyCode, event);
+	}
 }
