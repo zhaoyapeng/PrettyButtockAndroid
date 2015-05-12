@@ -154,6 +154,67 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 		VolleyUtil.getQueue(mContext).add(request);
 	}
 
+	//加载更多
+	public void addMusicList(int pageIndex, int pageSize, int index) {
+		String url = getString(R.string.base_url)
+				+ "api/system/GetAudio?partner=meilitun&pageIndex="
+				+ pageIndex
+				+ "&pageSize="
+				+ pageSize
+				+ "&audiotype="
+				+ index
+				+ "&sign="
+				+ MD5.getMD5("audiotype=" + index + "&pageIndex=" + pageIndex
+						+ "&pageSize=" + pageSize + "&partner=meilitun"
+						+ "lary");
+		Log.e("tag", "网络请求url" + url);
+		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(
+				url, GymnasticsListModel.class,
+				new Listener<GymnasticsListModel>() {
+					@Override
+					public void onResponse(GymnasticsListModel model) {
+						if (model.getCode() == 0) {
+							
+							adapter.addData(model.getRows());
+							 if(TextUtil.isEmpty(model.getTotalpage())||TextUtil.isEmpty(model.getCurpage())){
+								 return;
+							 }
+							 if(model.getTotalpage().equals(model.getCurpage())){
+								 listview_music.setPullLoadEnable(false);
+							 }else{
+								 listview_music.setPullLoadEnable(true);
+							 }
+
+						}
+						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT)
+								.show();
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(mContext, "网络请求失败了" + arg0,
+								Toast.LENGTH_SHORT).show();
+					}
+
+				}, mContext) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+				return hashMap;
+			}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(mContext).add(request);
+	}
 	@Override
 	protected void refreshData() {
 		// TODO Auto-generated method stub
@@ -191,7 +252,7 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 		default:
 			break;
 		}
-		getMusicList(1, 5, index + 1);
+		getMusicList(1, 10, index + 1);
 	}
 
 	public void isVisiiable(boolean isvis) {
@@ -207,13 +268,16 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		
+		currentPage = 1;
+		getMusicList(1, 10, index + 1);
+
 	}
 
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
-		
+		currentPage++;
+		addMusicList(currentPage,10, index + 1);
 	}
 	
 	@Override
