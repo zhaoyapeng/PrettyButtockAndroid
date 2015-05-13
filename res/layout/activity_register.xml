@@ -96,6 +96,7 @@
                         android:background="@null"
                         android:hint="请输入密码"
                         android:padding="5dp"
+                        android:password="true"
                         android:textSize="16sp" />
                 </TableRow>
 
@@ -115,6 +116,7 @@
                         android:background="@null"
                         android:hint="请再次输入密码"
                         android:padding="5dp"
+                        android:password="true"
                         android:textSize="16sp" />
                 </TableRow>
 
@@ -177,8 +179,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/button"
                     android:text="确定"
                     android:textColor="@android:color/white"
