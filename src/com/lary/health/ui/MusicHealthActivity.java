@@ -16,10 +16,10 @@ import com.lary.health.ui.fragment.BaseFragment;
 import com.lary.health.ui.widget.HomeViewPager;
 
 /**
- * 音乐养生 界面
- * 
- * @author du
- * 
+ * 原创音乐
+ * @author duronggang
+ *
+ * 2015年5月13日  duronggang@buybal.com
  */
 public class MusicHealthActivity extends BaseFragmentActivity implements
 		OnClickListener {
@@ -57,12 +57,13 @@ public class MusicHealthActivity extends BaseFragmentActivity implements
 		musicViewPager.setAdapter(adapter);
 		musicViewPager.setNotTouchScoll(true);
 		musicViewPager.setOffscreenPageLimit(5);
+		musicViewPager.setCurrentItem(TYPE_ORGINALMUSIC, false);
 		btn_five_music.setOnClickListener(this);
 		btn_condition_music.setOnClickListener(this);
 		btn_original_music.setOnClickListener(this);
 		btn_make_music.setOnClickListener(this);
 		btn_prescription_music.setOnClickListener(this);
-		btn_five_music.setChecked(true);
+		btn_original_music.setChecked(true);
 	}
 
 	@Override

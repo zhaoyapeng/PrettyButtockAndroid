@@ -6,6 +6,8 @@ import java.util.Map;
 import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyUtil;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,19 +18,29 @@ import com.android.volley.Response.Listener;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.GymnasticsListModel;
+import com.lary.health.service.model.MusicHealthModelNet;
+import com.lary.health.ui.adaper.MusicAndHealthAdapter;
 import com.lary.health.ui.widget.XListView;
 
-public class MusicAndHealthActivity extends BaseFragmentActivity {
+/**
+ * 音乐养生
+ * @author duronggang
+ *
+ * 2015年5月13日  duronggang@buybal.com
+ */
+public class MusicAndHealthActivity extends BaseFragmentActivity implements XListView.IXListViewListener,OnClickListener{
 
 	private XListView healthList;
 	private int currentPage = 1;
 	private int LIMIT = 10;
 	private TextView backBt;
-	
+	private MusicAndHealthAdapter adapter;
+	private String type = "refresh";
 	
 	@Override
 	protected void initData() {
 		// TODO Auto-generated method stub
+		adapter = new MusicAndHealthAdapter(MusicAndHealthActivity.this);
 	}
 
 	@Override
@@ -37,12 +49,16 @@ public class MusicAndHealthActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_musicheath);
 		backBt = (TextView) findViewById(R.id.back_tv);
 		healthList = (XListView) findViewById(R.id.listview_heath);
+		healthList.setAdapter(adapter);
 	}
 
 	@Override
 	protected void initWidgetAciotns() {
 		// TODO Auto-generated method stub
-		gethealthsRefreshNet(1,10);
+		backBt.setOnClickListener(this);
+		type = "refresh";
+		currentPage = 1;
+		gethealthsRefreshNet(currentPage,LIMIT);
 
 	}
 	
@@ -51,21 +67,25 @@ public class MusicAndHealthActivity extends BaseFragmentActivity {
 	 * */
 	private void gethealthsRefreshNet(int pageIndex, int pageSize) {
 
-		String url = getString(R.string.base_url) + "api/system/ GetHealthMusicList?partner=meilitun&pageIndex=" + pageIndex
+		String url = getString(R.string.base_url) + "api/system/GetHealthMusicList?partner=meilitun&pageIndex=" + pageIndex
 				+ "&pageSize=" + pageSize + "&sign="
 				+ MD5.getMD5("pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&partner=meilitun" + "lary");
 		Log.e("tag", "网络请求url" + url);
-		VolleyGetRequest<GymnasticsListModel> request = new VolleyGetRequest<GymnasticsListModel>(url,
-				GymnasticsListModel.class, new Listener<GymnasticsListModel>() {
+		VolleyGetRequest<MusicHealthModelNet> request = new VolleyGetRequest<MusicHealthModelNet>(url,
+				MusicHealthModelNet.class, new Listener<MusicHealthModelNet>() {
 					@Override
-					public void onResponse(GymnasticsListModel model) {
+					public void onResponse(MusicHealthModelNet model) {
 						if(model.getCode()==0){
-					//		adapter.refreshData(model.getRows());
-//							if(model.getTotalpage().equals(model.getCurpage())){
-//								gymnasticsList.setPullLoadEnable(false);
-//							}else{
-//								gymnasticsList.setPullLoadEnable(true);
-//							}
+							if("more".equals(type)){
+								
+							}else{
+							adapter.refreshData(model.getRows());
+							}
+							if(model.getTotalpage().equals(model.getCurpage())){
+								healthList.setPullLoadEnable(false);
+							}else{
+								healthList.setPullLoadEnable(true);
+							}
 						}
 						Toast.makeText(MusicAndHealthActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
@@ -93,6 +113,28 @@ public class MusicAndHealthActivity extends BaseFragmentActivity {
 		};
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(MusicAndHealthActivity.this).add(request);
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		type = "refresh";
+		currentPage = 1;
+		gethealthsRefreshNet(currentPage,LIMIT);
+	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		type = "more";
+		currentPage++;
+		gethealthsRefreshNet(currentPage,LIMIT);
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		MusicAndHealthActivity.this.finish();
 	}
 
 }

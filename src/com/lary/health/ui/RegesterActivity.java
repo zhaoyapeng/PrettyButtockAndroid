@@ -23,11 +23,14 @@ import com.android.volley.VolleyError;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 
-public class RegesterActivity extends BaseFragmentActivity implements OnClickListener{
+public class RegesterActivity extends BaseFragmentActivity implements
+		OnClickListener {
 
 	private Button registerBt;
 	private ImageView backBt;
-	private EditText nickname_ed,email_ed,pwd_ed,repwd_ed,qq_ed,phones_ed,address_ed;
+	private EditText nickname_ed, email_ed, pwd_ed, repwd_ed, qq_ed, phones_ed,
+			address_ed;
+
 	@Override
 	protected void initData() {
 		// TODO Auto-generated method stub
@@ -71,7 +74,7 @@ public class RegesterActivity extends BaseFragmentActivity implements OnClickLis
 		}
 	}
 
-	public void registerData(){
+	public void registerData() {
 		final String nickName = nickname_ed.getText().toString().trim();
 		final String email = email_ed.getText().toString().trim();
 		final String pwd = pwd_ed.getText().toString().trim();
@@ -79,62 +82,78 @@ public class RegesterActivity extends BaseFragmentActivity implements OnClickLis
 		final String qq = qq_ed.getText().toString().trim();
 		final String phoneNum = phones_ed.getText().toString().trim();
 		final String address = address_ed.getText().toString().trim();
-		final String url = getResources().getString(R.string.base_url)+"api/system/register?partner=meilituan&sign="+MD5.getMD5("partner=meilituan&address="+address+"&email="+email+"&mobile="+phoneNum+"&nickname="+nickName+"&password="+pwd+"&qq="+qq+"lary");
+		final String url = getResources().getString(R.string.base_url)
+				+ "api/system/register?partner=meilituan&sign="
+				+ MD5.getMD5("partner=meilituan&address=" + address + "&email="
+						+ email + "&mobile=" + phoneNum + "&nickname="
+						+ nickName + "&password=" + pwd + "&qq=" + qq + "lary");
 
-		if(TextUtil.isEmpty(nickName)){
+		if (TextUtil.isEmpty(nickName)) {
 			Toast.makeText(RegesterActivity.this, "请填写昵称", 0).show();
 			return;
 		}
-		if(TextUtil.isEmpty(email)){
+		if (TextUtil.isEmpty(email)) {
 			Toast.makeText(RegesterActivity.this, "请填写邮箱", 0).show();
 			return;
 		}
-		if(TextUtil.isEmpty(pwd)){
+		if (TextUtil.isEmpty(pwd)) {
 			Toast.makeText(RegesterActivity.this, "请填写密码", 0).show();
 			return;
 		}
-		if(TextUtil.isEmpty(repwd)){
+		if (TextUtil.isEmpty(repwd)) {
 			Toast.makeText(RegesterActivity.this, "请填写确认密码", 0).show();
 			return;
 		}
-		if(!pwd.equals(repwd)){
+		if (!pwd.equals(repwd)) {
 			Toast.makeText(RegesterActivity.this, "两次密码不一致", 0).show();
 			return;
 		}
-		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(url, BaseModel.class, new Listener<BaseModel>() {
+		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(
+				url, BaseModel.class, new Listener<BaseModel>() {
 
-			@Override
-			public void onResponse(BaseModel arg0) {
-				// TODO Auto-generated method stub
-				Toast.makeText(RegesterActivity.this, "注册成功", 1).show();
-				Intent reIn = new Intent(RegesterActivity.this,HomeActivity.class);
-				startActivity(reIn);
-			}
-			
-		}, new Response.ErrorListener() {
+					@Override
+					public void onResponse(BaseModel arg0) {
+						// TODO Auto-generated method stub
+						if (0 == arg0.getCode()) {
+							Toast.makeText(RegesterActivity.this, "注册成功", 1)
+									.show();
+							RegesterActivity.this.finish();
+/*							Intent reIn = new Intent(RegesterActivity.this,
+									LoginActivity.class);
+							startActivity(reIn);*/
+						} else {
+							Toast.makeText(RegesterActivity.this,
+									arg0.getMessage(), 1).show();
 
-			@Override
-			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-				Toast.makeText(RegesterActivity.this, "注册失败"+arg0, 1).show();
+						}
+					}
 
-			}
-			
-		}, RegesterActivity.this){
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						// TODO Auto-generated method stub
+						Toast.makeText(RegesterActivity.this, "注册失败" + arg0, 1)
+								.show();
+
+					}
+
+				}, RegesterActivity.this) {
 			@Override
 			public Map<String, String> getHeaders() throws AuthFailureError {
 				// TODO Auto-generated method stub
-				HashMap<String, String> hashMap = new HashMap<String,String>();
-			//	hashMap.put("Accept", "application/json");
-				//hashMap.put("content-Type", "application/json; charset=UTF-8"); 
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
 				hashMap.put("contentType", "application/x-www-form-urlencoded");
-					return hashMap;
+				return hashMap;
 			}
-			
+
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				// TODO Auto-generated method stub
-				HashMap<String, String> hashMap = new HashMap<String,String>();
+				HashMap<String, String> hashMap = new HashMap<String, String>();
 				hashMap.put("nickname", nickName);
 				hashMap.put("email", email);
 				hashMap.put("password", pwd);
@@ -148,6 +167,5 @@ public class RegesterActivity extends BaseFragmentActivity implements OnClickLis
 		VolleyUtil.getQueue(RegesterActivity.this).add(request);
 
 	}
-		
-	
+
 }

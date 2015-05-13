@@ -139,6 +139,8 @@ public class HomeFragment extends BaseViewPagerFragment {
 					startActivity(intent);
 					break;
 				case 5:
+					intent.setClass(getActivity(), LoginActivity.class);
+					startActivity(intent);
 					break;
 				default:
 					break;
