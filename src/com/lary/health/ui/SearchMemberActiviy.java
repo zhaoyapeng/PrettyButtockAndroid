@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,54 +26,59 @@ import com.lary.health.ui.widget.XListView;
 
 /**
  * @author zhaoyapeng
- * @version create time:2015-5-13下午7:47:35
+ * @version create time:2015-5-13下午11:19:46
  * @Email zhaoyp@witmob.com
- * @Description 美丽圈组成员
+ * @Description 搜索activity
  */
-public class CircleMemberActivity extends BaseFragmentActivity {
+public class SearchMemberActiviy extends BaseFragmentActivity {
+
 	private XListView listView;
-	private CircleMemberAdapter adapter;
-	private String id;
+	private CirclegGroupsAdapter adapter;
+	private Button searchBtn;
+	private EditText searchEdit;
 
 	@Override
 	protected void initData() {
-		adapter = new CircleMemberAdapter(this);
-		id = getIntent().getStringExtra("id");
+		adapter = new CirclegGroupsAdapter(this);
 	}
 
 	@Override
 	protected void initView() {
-		setContentView(R.layout.activity_circle_member);
+		setContentView(R.layout.activity_serach_member);
 		listView = (XListView) findViewById(R.id.listView);
+		searchBtn = (Button) findViewById(R.id.btn_search);
+		searchEdit = (EditText) findViewById(R.id.edit_search);
 	}
 
 	@Override
 	protected void initWidgetAciotns() {
 		listView.setAdapter(adapter);
-		listView.setPullLoadEnable(false);
-		listView.setPullRefreshEnable(true);
+		searchBtn.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				getCircleNet(searchEdit.getText().toString());
+			}
+		});
 
-		getCircleNet(id);
 	}
 
 	/**
-	 * 获取美丽圈群组成员
+	 * 模糊查询
 	 * */
-	private void getCircleNet(String id) {
+	private void getCircleNet(String name) {
 
-		String url = getString(R.string.base_url) + "api/system/GetCircleMembers?partner=meilitun&id=" + id + "&sign="
-				+ MD5.getMD5("id=" + id + "&partner=meilitun" + "lary");
-
+		String url = getString(R.string.base_url) + "api/system/SearchCircleList?partner=meilitun&name=" + name + "&sign="
+				+ MD5.getMD5("name=" + name + "&partner=meilitun" + "lary");
 		Log.e("tag", "网络请求url" + url);
-		VolleyGetRequest<CircleMemberListModel> request = new VolleyGetRequest<CircleMemberListModel>(url,
-				CircleMemberListModel.class, new Listener<CircleMemberListModel>() {
+		VolleyGetRequest<CircleListModel> request = new VolleyGetRequest<CircleListModel>(url, CircleListModel.class,
+				new Listener<CircleListModel>() {
 					@Override
-					public void onResponse(CircleMemberListModel model) {
+					public void onResponse(CircleListModel model) {
 						if (model.getCode() == 0) {
 							adapter.refreshData(model.getRows());
 						}
-						Toast.makeText(CircleMemberActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
+						Toast.makeText(SearchMemberActiviy.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -80,10 +86,10 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
 						Log.e("tag", "VolleyError" + arg0);
-						Toast.makeText(CircleMemberActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+						Toast.makeText(SearchMemberActiviy.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
 					}
 
-				}, CircleMemberActivity.this) {
+				}, SearchMemberActiviy.this) {
 
 			@Override
 			public Map<String, String> getHeaders() throws AuthFailureError {
@@ -97,7 +103,6 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 			}
 		};
 		request.setShouldCache(false);
-		VolleyUtil.getQueue(CircleMemberActivity.this).add(request);
+		VolleyUtil.getQueue(SearchMemberActiviy.this).add(request);
 	}
-
 }
