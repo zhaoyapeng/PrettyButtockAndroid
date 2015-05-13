@@ -214,6 +214,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 							homeModelNet = model;
 							ArrayList<String> imageUrls = new ArrayList<String>();
 							for (int i = 0; i < model.getNetInfo().size(); i++) {
+
 								imageUrls
 										.add(mContext
 												.getString(R.string.base_url)

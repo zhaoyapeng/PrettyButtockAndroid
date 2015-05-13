@@ -5,9 +5,12 @@ import java.util.Map;
 
 import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyUtil;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.GymnasticsListModel;
 import com.lary.health.service.model.MusicHealthModelNet;
 import com.lary.health.ui.adaper.MusicAndHealthAdapter;
+import com.lary.health.ui.adaper.MusicAndHealthAdapter.ViewHolder;
 import com.lary.health.ui.widget.XListView;
 
 /**
@@ -50,6 +54,19 @@ public class MusicAndHealthActivity extends BaseFragmentActivity implements XLis
 		backBt = (TextView) findViewById(R.id.back_tv);
 		healthList = (XListView) findViewById(R.id.listview_heath);
 		healthList.setAdapter(adapter);
+		healthList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				ViewHolder viewHolder = (ViewHolder) view.getTag();
+				Intent intent = new Intent(MusicAndHealthActivity.this,
+						DetailWebActivity.class);
+				intent.putExtra("webUrl", MusicAndHealthActivity.this.getResources().getString(R.string.base_url)+"/home/singlepage/"+viewHolder.model.getId());
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override

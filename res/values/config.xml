@@ -2,4 +2,5 @@
 <resources>
 <string name="base_url">http://119.10.27.126:8080/</string>
 <string name="base_url_no">http://119.10.27.126:8080</string>
+<string name="musichealthurl">/home/singlepage/</string>
 </resources>
