@@ -48,6 +48,7 @@ import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.service.model.HomeModelNet;
+import com.lary.health.service.sharepreferences.HomeSharepreferences;
 import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.LoginActivity;
 import com.lary.health.ui.widget.HomeViewPager;
@@ -79,22 +80,17 @@ public class HomeFragment extends BaseViewPagerFragment {
 	@Override
 	protected void initData() {
 		imageLoader = ImageLoader.getInstance();
-		avatarOptions = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.ic_launcher)
-				.showImageForEmptyUri(R.drawable.ic_launcher)
-				.showImageOnFail(R.drawable.ic_launcher).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.displayer(new SimpleBitmapDisplayer())
+		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
 				.imageScaleType(ImageScaleType.EXACTLY).build();
 
 	}
 
 	@Override
-	protected View initViews(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
-		rollViewPager2 = (RollViewPager2) view
-				.findViewById(R.id.forimg_viewpager);
+		rollViewPager2 = (RollViewPager2) view.findViewById(R.id.forimg_viewpager);
 		func_gridview = (GridView) view.findViewById(R.id.func_gridview);
 		initItems();
 		gridAdapter = new HomeFunctionAdapter(getActivity(), homedirects);
@@ -116,14 +112,11 @@ public class HomeFragment extends BaseViewPagerFragment {
 		func_gridview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent = new Intent(mContext,
-						GymnasticsBeautifulActivity.class);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(mContext, GymnasticsBeautifulActivity.class);
 				switch (position) {
 				case 0:
-					intent.setClass(getActivity(),
-							GymnasticsBeautifulActivity.class);
+					intent.setClass(getActivity(), GymnasticsBeautifulActivity.class);
 					startActivity(intent);
 					break;
 				case 1:
@@ -157,8 +150,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 
 	private void initItems() {
 		String name[] = { "垫上美操", "体质辨识", "音乐养生", "原创音乐", "最新活动", "锻炼记录" };
-		int[] image = { R.drawable.list01, R.drawable.list02,
-				R.drawable.list03, R.drawable.list04, R.drawable.list05,
+		int[] image = { R.drawable.list01, R.drawable.list02, R.drawable.list03, R.drawable.list04, R.drawable.list05,
 				R.drawable.list06 };
 		homedirects = new ArrayList<HomeDirect>();
 		for (int i = 1; i < image.length + 1; i++) {
@@ -173,28 +165,22 @@ public class HomeFragment extends BaseViewPagerFragment {
 	public void forImg(ArrayList<String> uriList) {
 		Log.e("tag", "uriList=" + uriList.size());
 		// 构造网络图片
-		rollViewPager2
-				.setDot(dots, R.drawable.dot_focus, R.drawable.dot_normal);
+		rollViewPager2.setDot(dots, R.drawable.dot_focus, R.drawable.dot_normal);
 
 		// 用来显示的点
 
-		rollViewPager2
-				.setPagerCallback(new RollViewPager2.OnPagerClickCallback() {
+		rollViewPager2.setPagerCallback(new RollViewPager2.OnPagerClickCallback() {
 
-					@Override
-					public void onPagerClick(int position) {
-						if (homeModelNet != null
-								&& homeModelNet.getNetInfo() != null
-								&& homeModelNet.getNetInfo().size() > 0) {
-							Intent intent = new Intent(mContext,
-									DetailWebActivity.class);
-							intent.putExtra("webUrl", homeModelNet.getNetInfo()
-									.get(position).getNeturl());
-							startActivity(intent);
-						}
+			@Override
+			public void onPagerClick(int position) {
+				if (homeModelNet != null && homeModelNet.getNetInfo() != null && homeModelNet.getNetInfo().size() > 0) {
+					Intent intent = new Intent(mContext, DetailWebActivity.class);
+					intent.putExtra("webUrl", homeModelNet.getNetInfo().get(position).getNeturl());
+					startActivity(intent);
+				}
 
-					}
-				});
+			}
+		});
 
 		// mViewPager.setResImageIds(imageIDs);//设置res的图片id
 		rollViewPager2.setUriList(uriList);// 设置网络图片的url
@@ -205,8 +191,8 @@ public class HomeFragment extends BaseViewPagerFragment {
 
 		String url = getString(R.string.base_url)
 				+ "api/system/getbanner?&partner=meilitun&sign=a95c990566b7c02163f304c60aa7560d";
-		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(
-				url, HomeModelNet.class, new Listener<HomeModelNet>() {
+		VolleyGetRequest<HomeModelNet> request = new VolleyGetRequest<HomeModelNet>(url, HomeModelNet.class,
+				new Listener<HomeModelNet>() {
 					@Override
 					public void onResponse(HomeModelNet model) {
 
@@ -215,14 +201,13 @@ public class HomeFragment extends BaseViewPagerFragment {
 							ArrayList<String> imageUrls = new ArrayList<String>();
 							for (int i = 0; i < model.getNetInfo().size(); i++) {
 
-								imageUrls
-										.add(mContext
-												.getString(R.string.base_url)
-												+ model.getNetInfo().get(i)
-														.getImgurl());
+								imageUrls.add(mContext.getString(R.string.base_url)
+										+ model.getNetInfo().get(i).getImgurl());
+							}
+							if (model.getNetInfo() != null && model.getNetInfo().size() >= 1) {
+								HomeSharepreferences.saveUrl(mContext, model.getNetInfo().get(0).getShopurl());
 							}
 							forImg(imageUrls);
-
 						}
 					}
 
@@ -231,8 +216,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
 						Log.e("tag", "VolleyError" + arg0);
-						Toast.makeText(mContext, "网络请求失败了" + arg0,
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
 					}
 
 				}, mContext) {

@@ -60,13 +60,13 @@ public class CirclegGroupsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder=null;
-		if(convertView==null){
+		ViewHolder holder = null;
+		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.item_circle, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
-		}else{
-			holder = (ViewHolder)convertView.getTag();
+		} else {
+			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.update(circleList.get(position));
 		return convertView;
@@ -75,6 +75,7 @@ public class CirclegGroupsAdapter extends BaseAdapter {
 	public class ViewHolder {
 		private ImageView avatarImg;
 		private TextView titleText;
+		public CircleItemModel model;
 
 		public ViewHolder(View view) {
 			avatarImg = (ImageView) view.findViewById(R.id.img_avatar);
@@ -82,7 +83,9 @@ public class CirclegGroupsAdapter extends BaseAdapter {
 		}
 
 		public void update(CircleItemModel model) {
-			imageLoader.displayImage(mContext.getString(R.string.base_url)+model.getImageurl(), avatarImg, avatarOptions);
+			this.model = model;
+			imageLoader.displayImage(mContext.getString(R.string.base_url) + model.getImageurl(), avatarImg,
+					avatarOptions);
 			titleText.setText(model.getName());
 		}
 	}
