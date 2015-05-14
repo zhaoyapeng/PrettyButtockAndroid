@@ -81,7 +81,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 	protected void initData() {
 		imageLoader = ImageLoader.getInstance();
 		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
-				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.banner1).showImageOnFail(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
 				.imageScaleType(ImageScaleType.EXACTLY).build();
 
