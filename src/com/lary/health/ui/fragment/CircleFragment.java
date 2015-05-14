@@ -14,14 +14,22 @@ import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.CircleListModel;
 import com.lary.health.service.model.GymnasticsListModel;
+import com.lary.health.ui.CircleMemberActivity;
+import com.lary.health.ui.SearchMemberActiviy;
 import com.lary.health.ui.adaper.CirclegGroupsAdapter;
+import com.lary.health.ui.adaper.CirclegGroupsAdapter.ViewHolder;
 import com.lary.health.ui.widget.XListView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -34,6 +42,7 @@ public class CircleFragment extends BaseViewPagerFragment {
 
 	private XListView listview;
 	private CirclegGroupsAdapter adapter;
+	private Button serachBtn;
 
 	@Override
 	protected void initData() {
@@ -44,25 +53,44 @@ public class CircleFragment extends BaseViewPagerFragment {
 	protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_circle, container, false);
 		listview = (XListView) view.findViewById(R.id.listView);
+		serachBtn = (Button) view.findViewById(R.id.btn_search);
 		return view;
 	}
 
 	@Override
 	protected void initWidgetActions() {
 		listview.setAdapter(adapter);
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ViewHolder holder = (ViewHolder) view.getTag();
+				Intent intent = new Intent(mContext, CircleMemberActivity.class);
+				intent.putExtra("id", holder.model.getId());
+				startActivity(intent);
+			}
+		});
+		serachBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, SearchMemberActiviy.class);
+				startActivity(intent);
+			}
+		});
 		getCircleNet("82");
 	}
 
 	/**
-	 * 加载更多
+	 * 获取美丽圈群组
 	 * */
 	private void getCircleNet(String userId) {
 
 		String url = getString(R.string.base_url) + "api/system/GetCircleList?partner=meilitun&id=" + userId + "&sign="
 				+ MD5.getMD5("id=" + userId + "&partner=meilitun" + "lary");
 		Log.e("tag", "网络请求url" + url);
-		VolleyGetRequest<CircleListModel> request = new VolleyGetRequest<CircleListModel>(url,
-				CircleListModel.class, new Listener<CircleListModel>() {
+		VolleyGetRequest<CircleListModel> request = new VolleyGetRequest<CircleListModel>(url, CircleListModel.class,
+				new Listener<CircleListModel>() {
 					@Override
 					public void onResponse(CircleListModel model) {
 						if (model.getCode() == 0) {

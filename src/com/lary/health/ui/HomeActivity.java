@@ -84,7 +84,6 @@ public class HomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				
 				homeViewPager.setCurrentItem(TYPE_CIRCLE, false);
 			}
 		});

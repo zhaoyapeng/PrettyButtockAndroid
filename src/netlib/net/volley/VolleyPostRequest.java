@@ -1,3 +1,4 @@
+
 package netlib.net.volley;
 
 import android.content.Context;
@@ -78,6 +79,7 @@ public class VolleyPostRequest<T extends BaseModel> extends Request<T> {
 		try {
 			parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 			Log.e("tag", "网络请求结果=" + parsed);
+			Log.e("tag", "网络请求结果处理之后=" + parsed.replaceAll("\\\\", "").substring(1, parsed.replaceAll("\\\\", "").length() - 1));
 			responseWrapper = Response.success(
 					new Gson().fromJson(
 							parsed.replaceAll("\\\\", "").substring(1, parsed.replaceAll("\\\\", "").length() - 1),

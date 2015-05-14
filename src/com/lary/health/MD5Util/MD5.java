@@ -26,4 +26,23 @@ public class MD5 {
         }
         return builder.toString();
     }
+    
+    public static String MD5Encode(String origin) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(origin.getBytes("utf8"));
+			byte[] result = md.digest();
+			for (int i = 0; i < result.length; i++) {
+				//int val = result[i] & 0xff;
+				//sb.append(Integer.toHexString(val));
+				int val = (result[i] & 0x000000ff) | 0xffffff00;
+				sb.append(Integer.toHexString(val).substring(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
+	} 
 }

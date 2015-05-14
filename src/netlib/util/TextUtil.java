@@ -444,6 +444,12 @@ package netlib.util;
 			// return	regularExpression.matches("/^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])((\\d{4})|\\d{3}[A-Z])$/");
 	           return false;
 	    }
+	    
+	    public static String getdate(){
+	    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+	    	System.out.println(df.format(new Date()));
+	    	return df.format(new Date());
+	    }
 
 	}
 
