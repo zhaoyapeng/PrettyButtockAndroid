@@ -5,6 +5,8 @@ import java.util.Map;
 
 import netlib.net.volley.VolleyGetRequest;
 import netlib.net.volley.VolleyUtil;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -99,5 +101,24 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(CircleMemberActivity.this).add(request);
 	}
+	 public void showInfoDailog() {
+	        new AlertDialog.Builder(this).setTitle("完善个人资料可获赠积分呦~").setCancelable(false)
+	                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
 
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	                        dialog.dismiss();
+	                    }
+	                }).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) {
+//	                Intent intent = new Intent();
+//	                intent.setClass(context, PersonInstallActivity.class);
+//	                startActivity(intent);
+
+	            }
+	        }).create().show();
+
+	    }
 }

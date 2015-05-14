@@ -17,6 +17,7 @@ import com.android.volley.Response.Listener;
 import com.lary.health.R;
 import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.event.IEvent;
+import com.lary.health.service.event.LoadingEvent;
 import com.lary.health.service.event.cdshiEvent;
 import com.lary.health.ui.adaper.HomeAdapter;
 import com.lary.health.ui.widget.HomeViewPager;
@@ -36,13 +37,14 @@ public class HomeActivity extends BaseFragmentActivity {
 	private HomeAdapter adapter;
 
 	private RadioButton homeBtn, circleBtn, shopBtn, persionBtn;
-	
+
 	private final static int TYPE_HOME = 0;
 	private final static int TYPE_CIRCLE = 1;
 	private final static int TYPE_SHOP = 2;
 	private final static int TYPE_PERSION = 3;
 
-	private Button ceshiNet, ceshiEvent,btn_video,btn_medir;
+	private Button ceshiNet, ceshiEvent, btn_video, btn_medir;
+
 	@Override
 	protected void initData() {
 		adapter = new HomeAdapter(getSupportFragmentManager());
@@ -98,5 +100,16 @@ public class HomeActivity extends BaseFragmentActivity {
 		homeBtn.setChecked(true);
 	}
 
-	
+	@Override
+	public void onEvent(IEvent event) {
+		super.onEvent(event);
+		if (event instanceof LoadingEvent) {
+			if (((LoadingEvent) event).isShow()) {
+				showLoadingDialog();
+			}else{
+				hideLoadingDialog();
+			}
+		}
+	}
+
 }
