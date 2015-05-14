@@ -143,6 +143,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
 
+			//	videoView.seekTo(seekBar.getProgress());
 			}
 
 			@Override
@@ -352,13 +353,13 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 		// TODO Auto-generated method stub
-		if (distanceX > 0) {
-			this.videoSeekBar.setProgress(this.videoSeekBar.getProgress() - 1);
-		} else {
-			this.videoSeekBar.setProgress(this.videoSeekBar.getProgress() + 1);
-		}
-		videoView.seekTo((int) (this.videoSeekBar.getProgress() * 1.0
-				/ videoSeekBar.getMax() * videoView.getDuration()));
+//		if (distanceX > 0) {
+//			this.videoSeekBar.setProgress(this.videoSeekBar.getProgress() - 1);
+//		} else {
+//			this.videoSeekBar.setProgress(this.videoSeekBar.getProgress() + 1);
+//		}
+		//videoView.seekTo((int) (this.videoSeekBar.getProgress() * 1.0
+		//		/ videoSeekBar.getMax() * videoView.getDuration()));
 		return false;
 	}
 

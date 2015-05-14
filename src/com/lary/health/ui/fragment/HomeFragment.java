@@ -119,10 +119,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					intent.setClass(getActivity(), GymnasticsBeautifulActivity.class);
 					startActivity(intent);
 					break;
-				case 1:
-					intent.setClass(getActivity(), PlayVideoActivity.class);
-					startActivity(intent);
-					break;
+
 				case 2:
 					intent.setClass(getActivity(), MusicAndHealthActivity.class);
 					startActivity(intent);
@@ -136,6 +133,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					startActivity(intent);
 					break;
 				default:
+					Toast.makeText(getActivity(), "敬请期待。。", 0).show();
 					break;
 				}
 			}
