@@ -127,3 +127,4 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 	}
 
 }
+

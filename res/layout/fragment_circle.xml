@@ -46,4 +46,5 @@
         android:headerDividersEnabled="false"
         android:listSelector="#00000000" />
 
+>>>>>>> branch 'master' of git@github.com:zhaoyapeng/PrettyButtockAndroid.git
 </RelativeLayout>

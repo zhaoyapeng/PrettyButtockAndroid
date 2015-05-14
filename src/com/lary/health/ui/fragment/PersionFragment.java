@@ -39,4 +39,8 @@ public class PersionFragment extends BaseViewPagerFragment{
 		
 	}
 
+	public void getrecode(){
+		
+	}
+	
 }

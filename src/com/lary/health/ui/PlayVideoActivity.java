@@ -262,6 +262,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_close_image:
+			putRecord();
 			PlayVideoActivity.this.finish();
 			break;
 		case R.id.music_iv:
@@ -451,18 +452,17 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 
 	public void putRecord() {
 		minute = (double) time / 1000 / 60;
-		df = new java.text.DecimalFormat(".##");
-		df.format(minute);
+
 		date = TextUtil.getdate();
-	//	dateTime= String.format("%.2f");
+		dateTime= String.format("%.2f",minute);
 
 
 		String url = getResources().getString(R.string.base_url)
 				+ "api/system/uploadTrainingRecords?partner=meilituan&sign="
 				+ MD5.MD5Encode("partner=meilituan&memberId=" + "82" + "&Minutes="
-						+ "1" + "&Traindate=" + "2015-05-13"
-						+ "&VideoName=" +"你好"+ "lary");
-		Log.d("MD5",  MD5.MD5Encode("partner=meilituan&memberId=82&Minutes=1&Traindate=2015-05-13&VideoName=音乐没臀操lary")); 
+						+ dateTime + "&Traindate=" + date
+						+ "&VideoName=" +gymMode.getName()+ "lary");
+		Log.d("double", dateTime); 
 
 		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(
 				url, BaseModel.class, new Listener<BaseModel>() {
@@ -513,9 +513,9 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 				HashMap<String, String> hashMap = new HashMap<String, String>();
 
 				hashMap.put("memberId", "82");
-				hashMap.put("Minutes", "1");
-				hashMap.put("Traindate","2015-05-13");
-				hashMap.put("VideoName","你好");
+				hashMap.put("Minutes", dateTime);
+				hashMap.put("Traindate",date);
+				hashMap.put("VideoName",gymMode.getName());
 
 				return hashMap;
 			}
