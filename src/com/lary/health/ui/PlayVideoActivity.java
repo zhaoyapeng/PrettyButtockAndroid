@@ -440,9 +440,9 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			//if (time > 0) {
+			if (time > 0) {
 				putRecord();
-		//	}
+			}
 			PlayVideoActivity.this.finish();
 
 		}

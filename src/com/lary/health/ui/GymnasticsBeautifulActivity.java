@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 	private HomeViewPager viewPager;
 	private GymnasticsAdapter adapter;
 	private RadioButton originalBtn, gymnasticsBtn;
+	private ImageView back_iv;
 
 	@Override
 	protected void initData() {
@@ -45,6 +47,7 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 		viewPager = (HomeViewPager) findViewById(R.id.viewpager);
 		originalBtn = (RadioButton) findViewById(R.id.btn_original);
 		gymnasticsBtn = (RadioButton) findViewById(R.id.btn_gymnastics);
+		back_iv = (ImageView) findViewById(R.id.back_iv);
 	}
 
 	@Override
@@ -69,6 +72,15 @@ public class GymnasticsBeautifulActivity extends BaseFragmentActivity {
 				gymnasticsBtn.setChecked(false);
 				originalBtn.setChecked(true);
 				viewPager.setCurrentItem(1, false);
+			}
+		});
+		
+		back_iv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				GymnasticsBeautifulActivity.this.finish();
 			}
 		});
 	}
