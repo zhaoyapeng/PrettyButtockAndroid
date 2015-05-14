@@ -84,7 +84,7 @@ public class RegesterActivity extends BaseFragmentActivity implements
 		final String address = address_ed.getText().toString().trim();
 		final String url = getResources().getString(R.string.base_url)
 				+ "api/system/register?partner=meilituan&sign="
-				+ MD5.getMD5("partner=meilituan&address=" + address + "&email="
+				+ MD5.MD5Encode("partner=meilituan&address=" + address + "&email="
 						+ email + "&mobile=" + phoneNum + "&nickname="
 						+ nickName + "&password=" + pwd + "&qq=" + qq + "lary");
 
