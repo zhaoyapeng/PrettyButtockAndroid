@@ -1,8 +1,11 @@
 package com.lary.health.ui.fragment;
 
 import com.lary.health.R;
+import com.lary.health.service.event.LoadingEvent;
 import com.lary.health.service.sharepreferences.HomeSharepreferences;
 import com.lary.health.ui.util.IsNetWorkConnectUtil;
+
+import de.greenrobot.event.EventBus;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -70,8 +73,14 @@ public class ShopFragment extends BaseViewPagerFragment {
 			public void onProgressChanged(WebView view, int newProgress) {
 				if (newProgress == 100) {
 //					hideLoadingDialog();
+					LoadingEvent event = new LoadingEvent();
+					event.setShow(false);
+					EventBus.getDefault().post(event);
 				} else if (newProgress == 0) {
 //					showLoadingDialog();
+					LoadingEvent event = new LoadingEvent();
+					event.setShow(true);
+					EventBus.getDefault().post(event);
 				}
 				super.onProgressChanged(view, newProgress);
 			}
@@ -94,22 +103,24 @@ public class ShopFragment extends BaseViewPagerFragment {
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				Log.e("tag", "onPageStarted");
 //				showLoadingDialog();
+				LoadingEvent event = new LoadingEvent();
+				event.setShow(true);
+				EventBus.getDefault().post(event);
 
 			}
 		};
 
 		webView.setWebChromeClient(chromeClient);
 		webView.setWebViewClient(client);
-		if (!HomeSharepreferences.getUrl(mContext).equals("")) {
-			webView.loadUrl(HomeSharepreferences.getUrl(mContext));
-		}
+	
 
 	}
 
 	@Override
 	protected void refreshData() {
-		// TODO Auto-generated method stub
-
+		if (!HomeSharepreferences.getUrl(mContext).equals("")) {
+			webView.loadUrl(HomeSharepreferences.getUrl(mContext));
+		}
 	}
 
 }
