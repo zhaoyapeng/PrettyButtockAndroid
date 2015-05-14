@@ -258,8 +258,8 @@ public class RollViewPager2 extends ViewPager {
 	 
 	 private void initimgLoder(){
 			imageLoader = ImageLoader.getInstance();
-			avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
-					.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+			avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.banner1)
+					.showImageForEmptyUri(R.drawable.banner1).showImageOnFail(R.drawable.banner1)
 					.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
 					.imageScaleType(ImageScaleType.EXACTLY).build();
 	 } 
