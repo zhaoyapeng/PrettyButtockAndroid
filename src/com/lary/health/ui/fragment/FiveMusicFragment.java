@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -36,7 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * 
  * @author du 五行音乐
  */
-public class FiveMusicFragment extends BaseViewPagerFragment implements XListView.IXListViewListener{
+public class FiveMusicFragment extends BaseViewPagerFragment implements XListView.IXListViewListener,OnClickListener{
 	private int index;
 	private TextView music_title, music_back, music_small_title, zhuanji_tv;
 	private ImageView ori_music_uplod;
@@ -79,6 +80,7 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 	@Override
 	protected void initWidgetActions() {
 		// TODO Auto-generated method stub
+		music_back.setOnClickListener(this);
 		listview_music.setAdapter(adapter);
 //		listview_music.setOnItemClickListener(new OnItemClickListener() {
 //
@@ -295,6 +297,12 @@ public class FiveMusicFragment extends BaseViewPagerFragment implements XListVie
 		super.onPause();
 		if(adapter != null)
 		adapter.stopPLay();
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		getActivity().finish();
 	}
 	
 }

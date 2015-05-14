@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:visibility="gone"
             android:src="@drawable/back" />
 
         <TextView
@@ -20,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textSize="18sp"
             android:text="美丽圈"
             android:textColor="@android:color/white" />
     </RelativeLayout>
@@ -44,4 +46,5 @@
         android:headerDividersEnabled="false"
         android:listSelector="#00000000" />
 
+>>>>>>> branch 'master' of git@github.com:zhaoyapeng/PrettyButtockAndroid.git
 </RelativeLayout>

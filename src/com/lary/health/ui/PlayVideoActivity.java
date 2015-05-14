@@ -1,11 +1,23 @@
 package com.lary.health.ui;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import netlib.model.BaseModel;
+import netlib.net.volley.VolleyPostRequest;
+import netlib.net.volley.VolleyUtil;
+import netlib.util.TextUtil;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.Response.Listener;
 import com.lary.health.R;
+import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.GymnasticsListItemModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,8 +36,10 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,6 +78,11 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	private ImageLoader imageLoader;
 	private DisplayImageOptions avatarOptions;
 	private ImageView music_iv, fuulscreen_iv, backBt;
+	private int time;
+	private String dateTime;
+	private double minute;
+	private java.text.DecimalFormat df;
+	private String date;
 
 	// private
 	@Override
@@ -183,6 +202,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 									int bufferPos = videoView
 											.getBufferPercentage();
 									int duration = videoView.getDuration();
+									Log.d("总时间：", duration + "");
 									videoSeekBar
 											.setSecondaryProgress(bufferPos);
 									totalTimeView
@@ -191,6 +211,8 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 											.setText(getTimeFormatValue((int) position));
 									videoSeekBar.setProgress((int) (position
 											/ duration * videoSeekBar.getMax()));
+									time = (int) (position / duration * videoSeekBar
+											.getMax());
 								}
 							}
 						});
@@ -240,13 +262,14 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_close_image:
+			putRecord();
 			PlayVideoActivity.this.finish();
 			break;
 		case R.id.music_iv:
 
 			break;
 		case R.id.fuulscreen_iv:
-			int time = (int) (this.videoSeekBar.getProgress() * 1.0
+			time = (int) (this.videoSeekBar.getProgress() * 1.0
 					/ videoSeekBar.getMax() * videoView.getDuration());
 			Intent fullIn = new Intent(PlayVideoActivity.this,
 					PLayVideoFullScreenActivity.class);
@@ -388,7 +411,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg0 == 1) {
 			if (arg1 == RESULT_OK) {
-				int time = arg2.getIntExtra("time", 0);
+				time = arg2.getIntExtra("time", 0);
 				if (time > 0) {
 					if (videoView != null) {
 
@@ -414,4 +437,91 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		}
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (time > 0) {
+				putRecord();
+			}
+			PlayVideoActivity.this.finish();
+
+		}
+		return false;
+	}
+
+	public void putRecord() {
+		minute = (double) time / 1000 / 60;
+
+		date = TextUtil.getdate();
+		dateTime= String.format("%.2f",minute);
+
+
+		String url = getResources().getString(R.string.base_url)
+				+ "api/system/uploadTrainingRecords?partner=meilituan&sign="
+				+ MD5.MD5Encode("partner=meilituan&memberId=" + "82" + "&Minutes="
+						+ dateTime + "&Traindate=" + date
+						+ "&VideoName=" +gymMode.getName()+ "lary");
+		Log.d("double", dateTime); 
+
+		VolleyPostRequest<BaseModel> request = new VolleyPostRequest<BaseModel>(
+				url, BaseModel.class, new Listener<BaseModel>() {
+
+					@Override
+					public void onResponse(BaseModel arg0) {
+						// TODO Auto-generated method stub
+						if (0 == arg0.getCode()) {
+							Toast.makeText(PlayVideoActivity.this, "记录上传成功", 1)
+									.show();
+							PlayVideoActivity.this.finish();
+							/*
+							 * Intent reIn = new Intent(RegesterActivity.this,
+							 * LoginActivity.class); startActivity(reIn);
+							 */
+						} else {
+							Toast.makeText(PlayVideoActivity.this,
+									arg0.getMessage(), 1).show();
+
+						}
+					}
+
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						// TODO Auto-generated method stub
+						Toast.makeText(PlayVideoActivity.this, "上传失败" + arg0, 1)
+								.show();
+
+					}
+
+				}, PlayVideoActivity.this) {
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+				return hashMap;
+			}
+
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+
+				hashMap.put("memberId", "82");
+				hashMap.put("Minutes", dateTime);
+				hashMap.put("Traindate",date);
+				hashMap.put("VideoName",gymMode.getName());
+
+				return hashMap;
+			}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(PlayVideoActivity.this).add(request);
+
+	}
 }

@@ -216,6 +216,7 @@ public class MusicListAdapter extends BaseAdapter {
 		if (player != null) {
 			player.stop();
 			player = null;
+			setUnplay();
 		}
 	}
 }

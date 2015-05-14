@@ -81,7 +81,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 	protected void initData() {
 		imageLoader = ImageLoader.getInstance();
 		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
-				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.banner1).showImageOnFail(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
 				.imageScaleType(ImageScaleType.EXACTLY).build();
 
@@ -200,6 +200,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 							homeModelNet = model;
 							ArrayList<String> imageUrls = new ArrayList<String>();
 							for (int i = 0; i < model.getNetInfo().size(); i++) {
+
 								imageUrls.add(mContext.getString(R.string.base_url)
 										+ model.getNetInfo().get(i).getImgurl());
 							}
