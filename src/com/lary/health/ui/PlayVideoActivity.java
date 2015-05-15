@@ -78,7 +78,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	private ImageLoader imageLoader;
 	private DisplayImageOptions avatarOptions;
 	private ImageView music_iv, fuulscreen_iv, backBt;
-	private int time;
+	private int time = 0;;
 	private String dateTime;
 	private double minute;
 	private java.text.DecimalFormat df;
@@ -217,6 +217,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 											/ duration * videoSeekBar.getMax()));
 									time = (int) (position / duration * videoSeekBar
 											.getMax());
+									Log.d("当前播放时间", ""+time);
 								}
 							}
 						});
@@ -448,9 +449,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (time > 0) {
-				putRecord();
-			}
+		    putRecord();
 			PlayVideoActivity.this.finish();
 
 		}
@@ -463,6 +462,9 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		date = TextUtil.getdate();
 		dateTime= String.format("%.2f",minute);
 
+		if(minute<0.5){
+			return;
+		}
 
 		String url = getResources().getString(R.string.base_url)
 				+ "api/system/uploadTrainingRecords?partner=meilituan&sign="
