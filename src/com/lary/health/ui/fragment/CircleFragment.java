@@ -22,6 +22,7 @@ import com.lary.health.ui.widget.XListView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 /**
@@ -43,6 +45,7 @@ public class CircleFragment extends BaseViewPagerFragment {
 	private XListView listview;
 	private CirclegGroupsAdapter adapter;
 	private Button serachBtn;
+	private LinearLayout createLayout, selectLayout, messageLayout;
 
 	@Override
 	protected void initData() {
@@ -54,11 +57,15 @@ public class CircleFragment extends BaseViewPagerFragment {
 		View view = inflater.inflate(R.layout.fragment_circle, container, false);
 		listview = (XListView) view.findViewById(R.id.listView);
 		serachBtn = (Button) view.findViewById(R.id.btn_search);
+		createLayout = (LinearLayout) view.findViewById(R.id.layout_create);
+		selectLayout = (LinearLayout) view.findViewById(R.id.layout_select);
 		return view;
 	}
 
 	@Override
 	protected void initWidgetActions() {
+		listview.setPullLoadEnable(false);
+		listview.setPullRefreshEnable(false);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -71,6 +78,21 @@ public class CircleFragment extends BaseViewPagerFragment {
 			}
 		});
 		serachBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, SearchMemberActiviy.class);
+				startActivity(intent);
+			}
+		});
+		createLayout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+		selectLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -96,14 +118,12 @@ public class CircleFragment extends BaseViewPagerFragment {
 						if (model.getCode() == 0) {
 							adapter.refreshData(model.getRows());
 						}
-						Toast.makeText(mContext, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
 
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						Log.e("tag", "VolleyError" + arg0);
 						Toast.makeText(mContext, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
 					}
 

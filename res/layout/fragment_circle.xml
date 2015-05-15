@@ -13,17 +13,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"
-            android:src="@drawable/back" />
+            android:src="@drawable/back"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="18sp"
             android:text="美丽圈"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <Button
@@ -46,5 +46,35 @@
         android:headerDividersEnabled="false"
         android:listSelector="#00000000" />
 
->>>>>>> branch 'master' of git@github.com:zhaoyapeng/PrettyButtockAndroid.git
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/layout_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="创建群组" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查找群组" />
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

@@ -10,6 +10,7 @@ import com.lary.health.ui.adaper.CirclegGroupsAdapter.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
@@ -39,7 +40,7 @@ public class CircleMemberAdapter extends BaseAdapter {
 		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
-				.imageScaleType(ImageScaleType.EXACTLY).build();
+				.imageScaleType(ImageScaleType.EXACTLY).displayer(new RoundedBitmapDisplayer(1000)).build();
 	}
 
 	@Override
@@ -74,6 +75,7 @@ public class CircleMemberAdapter extends BaseAdapter {
 	public class ViewHolder {
 		private ImageView avatarImg;
 		private TextView titleText;
+		public CircleMemberModel model;
 
 		public ViewHolder(View view) {
 			avatarImg = (ImageView) view.findViewById(R.id.img_avatar);
@@ -81,6 +83,7 @@ public class CircleMemberAdapter extends BaseAdapter {
 		}
 
 		public void update(CircleMemberModel model) {
+			this.model = model;
 			imageLoader.displayImage(mContext.getString(R.string.base_url) + model.getPhotoImage(), avatarImg,
 					avatarOptions);
 			titleText.setText(model.getName());
@@ -90,6 +93,7 @@ public class CircleMemberAdapter extends BaseAdapter {
 	public void refreshData(List<CircleMemberModel> circleList) {
 		this.circleList.clear();
 		this.circleList.addAll(circleList);
+		notifyDataSetChanged();
 	}
 
 }

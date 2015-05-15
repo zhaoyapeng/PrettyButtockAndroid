@@ -11,6 +11,7 @@ import com.lary.health.ui.adaper.OriginalAdapter.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
@@ -41,7 +42,7 @@ public class CirclegGroupsAdapter extends BaseAdapter {
 		avatarOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).displayer(new SimpleBitmapDisplayer())
-				.imageScaleType(ImageScaleType.EXACTLY).build();
+				.imageScaleType(ImageScaleType.EXACTLY).displayer(new RoundedBitmapDisplayer(1000)).build();
 	}
 
 	@Override

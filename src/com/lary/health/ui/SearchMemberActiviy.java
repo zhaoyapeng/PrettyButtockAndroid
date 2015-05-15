@@ -78,7 +78,6 @@ public class SearchMemberActiviy extends BaseFragmentActivity {
 						if (model.getCode() == 0) {
 							adapter.refreshData(model.getRows());
 						}
-						Toast.makeText(SearchMemberActiviy.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {

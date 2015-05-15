@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.lary.health.MD5Util.MD5;
 import com.lary.health.service.model.CircleListModel;
 import com.lary.health.service.model.CircleMemberListModel;
 import com.lary.health.ui.adaper.CircleMemberAdapter;
+import com.lary.health.ui.adaper.CircleMemberAdapter.ViewHolder;
 import com.lary.health.ui.adaper.CirclegGroupsAdapter;
 import com.lary.health.ui.widget.XListView;
 
@@ -52,9 +55,17 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 	protected void initWidgetAciotns() {
 		listView.setAdapter(adapter);
 		listView.setPullLoadEnable(false);
-		listView.setPullRefreshEnable(true);
+		listView.setPullRefreshEnable(false);
 
+		listView.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ViewHolder holder = (ViewHolder) view.getTag();
+
+				showInfoDailog(holder.model.getId(), "82");
+			}
+		});
 		getCircleNet(id);
 	}
 
@@ -74,7 +85,6 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 						if (model.getCode() == 0) {
 							adapter.refreshData(model.getRows());
 						}
-						Toast.makeText(CircleMemberActivity.this, "网络请求成功", Toast.LENGTH_SHORT).show();
 					}
 
 				}, new ErrorListener() {
@@ -101,24 +111,69 @@ public class CircleMemberActivity extends BaseFragmentActivity {
 		request.setShouldCache(false);
 		VolleyUtil.getQueue(CircleMemberActivity.this).add(request);
 	}
-	 public void showInfoDailog() {
-	        new AlertDialog.Builder(this).setTitle("完善个人资料可获赠积分呦~").setCancelable(false)
-	                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
 
-	                    @Override
-	                    public void onClick(DialogInterface dialog, int which) {
-	                        dialog.dismiss();
-	                    }
-	                }).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+	/**
+	 * 加入群组
+	 * */
+	private void addCircleNet(String id, String subMemberId) {
 
-	            @Override
-	            public void onClick(DialogInterface dialog, int which) {
-//	                Intent intent = new Intent();
-//	                intent.setClass(context, PersonInstallActivity.class);
-//	                startActivity(intent);
+		showLoadingDialog();
+		String url = getString(R.string.base_url) + "api/system/AddCircleList?partner=meilitun&id=" + id
+				+ "&subMemberId=" + subMemberId + "&sign="
+				+ MD5.getMD5("id=" + id + "&partner=meilitun" + "&subMemberId=" + subMemberId + "lary");
 
-	            }
-	        }).create().show();
+		Log.e("tag", "网络请求url" + url);
+		VolleyGetRequest<CircleMemberListModel> request = new VolleyGetRequest<CircleMemberListModel>(url,
+				CircleMemberListModel.class, new Listener<CircleMemberListModel>() {
+					@Override
+					public void onResponse(CircleMemberListModel model) {
+						hideLoadingDialog();
+						if (model.getCode() == 0) {
+							Toast.makeText(CircleMemberActivity.this, "加入成功", Toast.LENGTH_SHORT).show();
+						}
 
-	    }
+					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						hideLoadingDialog();
+						Log.e("tag", "VolleyError" + arg0);
+						Toast.makeText(CircleMemberActivity.this, "网络请求失败了" + arg0, Toast.LENGTH_SHORT).show();
+					}
+
+				}, CircleMemberActivity.this) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Auto-generated method stub
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				// hashMap.put("Accept", "application/json");
+				// hashMap.put("content-Type",
+				// "application/json; charset=UTF-8");
+				hashMap.put("contentType", "application/x-www-form-urlencoded");
+				return hashMap;
+			}
+		};
+		request.setShouldCache(false);
+		VolleyUtil.getQueue(CircleMemberActivity.this).add(request);
+	}
+
+	public void showInfoDailog(final String id, final String userId) {
+		new AlertDialog.Builder(this).setTitle("点击确定加入美丽圈").setCancelable(false)
+				.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						addCircleNet(id, userId);
+					}
+				}).create().show();
+
+	}
 }
