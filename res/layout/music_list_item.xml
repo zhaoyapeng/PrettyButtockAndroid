@@ -9,11 +9,16 @@
         android:gravity="center_vertical"
         android:padding="10dp" >
 
-        <ImageView
+<!--         <ImageView
             android:id="@+id/player_music_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/music_play" />
+            android:src="@drawable/player_selecter" /> -->
+        <CheckBox 
+            android:id="@+id/player_music_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/player_selecter"/>
 
         <TextView
             android:id="@+id/music_name"

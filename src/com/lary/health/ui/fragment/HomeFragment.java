@@ -15,6 +15,7 @@ import netlib.net.volley.VolleyUtil;
 import com.android.volley.AuthFailureError;
 import com.google.gson.Gson;
 import com.lary.health.R;
+import com.lary.health.ui.Bannerwebview;
 import com.lary.health.ui.DetailWebActivity;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
 import com.lary.health.ui.MusicAndHealthActivity;
@@ -172,7 +173,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 			@Override
 			public void onPagerClick(int position) {
 				if (homeModelNet != null && homeModelNet.getNetInfo() != null && homeModelNet.getNetInfo().size() > 0) {
-					Intent intent = new Intent(mContext, DetailWebActivity.class);
+					Intent intent = new Intent(mContext, Bannerwebview.class);
 					intent.putExtra("webUrl", homeModelNet.getNetInfo().get(position).getNeturl());
 					startActivity(intent);
 				}

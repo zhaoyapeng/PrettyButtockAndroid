@@ -21,6 +21,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,14 +37,14 @@ public class MusicListAdapter extends BaseAdapter {
 	private DisplayImageOptions avatarOptions;
 	private ListItemClickHelp callback;
 	public Boolean mClick = false;
-	private ArrayList<ImageView> playImg;
+	private ArrayList<CheckBox> playImg;
 	private String murl;
 	private  Player player;
 
 	public MusicListAdapter(Context mContext) {
 		this.mContext = mContext;
 		list = new ArrayList<GymnasticsListItemModel>();
-		playImg = new ArrayList<ImageView>();
+		playImg = new ArrayList<CheckBox>();
 		imageLoader = ImageLoader.getInstance();
 		avatarOptions = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.ic_launcher)
@@ -93,7 +96,7 @@ public class MusicListAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		private TextView nameText;
-		private ImageView playBt;
+		private CheckBox playBt;
 		private ImageView outup;
 		private LinearLayout handler;
 		private ImageView shareBr;
@@ -103,7 +106,7 @@ public class MusicListAdapter extends BaseAdapter {
 
 		public ViewHolder(View view) {
 			nameText = (TextView) view.findViewById(R.id.music_name);
-			playBt = (ImageView) view.findViewById(R.id.player_music_iv);
+			playBt = (CheckBox) view.findViewById(R.id.player_music_iv);
 			outup = (ImageView) view.findViewById(R.id.more_music_iv);
 			handler = (LinearLayout) view.findViewById(R.id.handle_music_ly);
 			shareBr = (ImageView) view.findViewById(R.id.list_music_share);
@@ -115,7 +118,7 @@ public class MusicListAdapter extends BaseAdapter {
 
 			this.model = model;
 			nameText.setText(model.getName());
-			playBt.setOnClickListener(listrener);
+			playBt.setOnCheckedChangeListener(checkListener);
 			outup.setOnClickListener(listrener);
 			shareBr.setOnClickListener(listrener);
 			uploadBt.setOnClickListener(listrener);
@@ -130,16 +133,21 @@ public class MusicListAdapter extends BaseAdapter {
 				murl = mContext.getResources().getString(R.string.base_url_no)+model.getAudioUrl();
 			//	murl = "http://64.22.109.100/~ventrix/olympiakos/aek.mp3";
 				switch (v.getId()) {
-				case R.id.player_music_iv:
-					setUnplay();
-					if(player != null){
-						playBt.setImageResource(R.drawable.music_play);
-					}else{
-						playBt.setImageResource(R.drawable.music_pause);
-
-					}
-					playMedir();
-					break;
+//				case R.id.player_music_iv:
+//					if(playBt.isChecked()){
+//						setUnplay();
+//						playBt.setChecked(true);
+//					}else{
+//						
+//					}
+//					if(player != null){
+//						playBt.setImageResource(R.drawable.music_play);
+//					}else{
+//						playBt.setImageResource(R.drawable.music_pause);
+//
+//					}
+//					playMedir();
+//					break;
 				case R.id.more_music_iv:
 					visia();
 					break;
@@ -156,6 +164,29 @@ public class MusicListAdapter extends BaseAdapter {
 				// break;
 				default:
 					break;
+				}
+			}
+		};
+		
+		OnCheckedChangeListener checkListener = new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+
+				Toast.makeText(mContext, model.getName(), 0).show();
+				if(isChecked){
+					murl = mContext.getResources().getString(R.string.base_url_no)+model.getAudioUrl();
+
+					setUnplay();
+					buttonView.setChecked(true);
+					playMedir();
+				}else{
+					if (player != null) {
+						player.stop();
+						mClick = true;
+						player = null;
+					}
 				}
 			}
 		};
@@ -177,8 +208,9 @@ public class MusicListAdapter extends BaseAdapter {
 		public void playMedir(){
 			if (player != null) {
 				player.stop();
+				mClick = true;
 				player = null;
-			}else{
+			}//else{
 				player = Player.getintence();
 
 				new Thread(new Runnable() {
@@ -190,7 +222,7 @@ public class MusicListAdapter extends BaseAdapter {
 						player.playUrl(murl);//pathText.getText().toString());
 					}
 				}).start();
-			}
+			//}
 		}
 
 	}
@@ -208,7 +240,8 @@ public class MusicListAdapter extends BaseAdapter {
 
 	public void setUnplay(){
 		for(int i=0;i<playImg.size();i++){
-			playImg.get(i).setImageResource(R.drawable.music_play);
+			
+			playImg.get(i).setChecked(false);
 		}
 	}
 	
