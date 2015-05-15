@@ -115,6 +115,8 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 锻炼记录 -->
+        <activity android:name="com.lary.health.ui.ExerciseRecordActivity"></activity>
     </application>
 
 </manifest>

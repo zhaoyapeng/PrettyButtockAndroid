@@ -1,9 +1,7 @@
 package com.lary.health.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,18 +10,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
-
 import com.lary.health.R;
 import com.lary.health.ui.util.IsNetWorkConnectUtil;
 
-/**
- * @author zhaoyapeng
- * @version create time:2015-5-10下午5:22:48
- * @Email zhaoyp@witmob.com
- * @Description webView Activity
- */
 @SuppressLint("NewApi")
-public class DetailWebActivity extends BaseFragmentActivity {
+public class Bannerwebview extends BaseFragmentActivity {
 
 	private WebView webView;
 	private WebSettings settings;
@@ -94,7 +85,7 @@ public class DetailWebActivity extends BaseFragmentActivity {
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
-			    view.loadUrl("javascript:playMusic();");
+			 //   view.loadUrl("javascript:playMusic();");
 			}
 
 			@Override
@@ -114,9 +105,8 @@ public class DetailWebActivity extends BaseFragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			
 			webView.destroy();
-			DetailWebActivity.this.finish();
+			Bannerwebview.this.finish();
 		}
 		return false;
 	}

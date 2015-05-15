@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.lary.health.R;
 import com.lary.health.ui.Bannerwebview;
 import com.lary.health.ui.DetailWebActivity;
+import com.lary.health.ui.ExerciseRecordActivity;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
 import com.lary.health.ui.MusicAndHealthActivity;
 import com.lary.health.ui.MusicHealthActivity;
@@ -130,7 +131,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					startActivity(intent);
 					break;
 				case 5:
-					intent.setClass(getActivity(), LoginActivity.class);
+					intent.setClass(getActivity(), ExerciseRecordActivity.class);
 					startActivity(intent);
 					break;
 				default:
