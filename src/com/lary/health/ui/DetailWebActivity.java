@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -58,7 +59,11 @@ public class DetailWebActivity extends BaseFragmentActivity {
 		settings.setJavaScriptEnabled(true);// 启用
 		settings.setLoadWithOverviewMode(true);
 		settings.setUseWideViewPort(true);
+		settings.setDomStorageEnabled(true);
+		settings.setJavaScriptCanOpenWindowsAutomatically(true);
 		settings.setLoadsImagesAutomatically(true);
+		settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+
 		settings.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
 		if (!IsNetWorkConnectUtil.isNetworkConnected(this)) {// 是否是无网状态
 			settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
@@ -88,6 +93,8 @@ public class DetailWebActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+			    view.loadUrl("javascript:playMusic();");
 			}
 
 			@Override
@@ -102,5 +109,14 @@ public class DetailWebActivity extends BaseFragmentActivity {
 		webView.setWebViewClient(client);
 		webView.loadUrl(url);
 	}
-
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			webView.destroy();
+			DetailWebActivity.this.finish();
+		}
+		return false;
+	}
 }

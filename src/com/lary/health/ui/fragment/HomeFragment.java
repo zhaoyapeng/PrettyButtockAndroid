@@ -15,6 +15,7 @@ import netlib.net.volley.VolleyUtil;
 import com.android.volley.AuthFailureError;
 import com.google.gson.Gson;
 import com.lary.health.R;
+import com.lary.health.ui.Bannerwebview;
 import com.lary.health.ui.DetailWebActivity;
 import com.lary.health.ui.GymnasticsBeautifulActivity;
 import com.lary.health.ui.MusicAndHealthActivity;
@@ -119,10 +120,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					intent.setClass(getActivity(), GymnasticsBeautifulActivity.class);
 					startActivity(intent);
 					break;
-				case 1:
-					intent.setClass(getActivity(), PlayVideoActivity.class);
-					startActivity(intent);
-					break;
+
 				case 2:
 					intent.setClass(getActivity(), MusicAndHealthActivity.class);
 					startActivity(intent);
@@ -136,6 +134,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 					startActivity(intent);
 					break;
 				default:
+					Toast.makeText(getActivity(), "敬请期待。。", 0).show();
 					break;
 				}
 			}
@@ -174,7 +173,7 @@ public class HomeFragment extends BaseViewPagerFragment {
 			@Override
 			public void onPagerClick(int position) {
 				if (homeModelNet != null && homeModelNet.getNetInfo() != null && homeModelNet.getNetInfo().size() > 0) {
-					Intent intent = new Intent(mContext, DetailWebActivity.class);
+					Intent intent = new Intent(mContext, Bannerwebview.class);
 					intent.putExtra("webUrl", homeModelNet.getNetInfo().get(position).getNeturl());
 					startActivity(intent);
 				}

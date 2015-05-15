@@ -143,6 +143,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
 
+			//	videoView.seekTo(seekBar.getProgress());
 			}
 
 			@Override
@@ -162,11 +163,14 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 					videoView.pause();
 					startBt.setImageResource(R.drawable.mv_start_button);
 				} else {
+				
 					videoView.setBackgroundDrawable(null);
 					// pbLoad.setVisibility(View.VISIBLE);
 					videoView.requestFocus();
-					videoView.start();
 					startBt.setImageResource(R.drawable.mv_pause_button);
+				
+					videoView.start();
+
 				}
 			}
 		});
@@ -186,8 +190,8 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 			public void onPrepared(MediaPlayer mp) {
 				// TODO Auto-generated method stub
 				pbLoad.setVisibility(View.GONE);
-				mp.start();
-				startBt.setImageResource(R.drawable.mv_pause_button);
+			//	mp.start();
+			//	startBt.setImageResource(R.drawable.mv_pause_button);
 				hideControllView();
 				scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
@@ -249,8 +253,9 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 			// videoView.requestFocus();
 			// videoView.start();
 		} else {
-			Toast.makeText(this, "视频无法播放", Toast.LENGTH_SHORT).show();
+			Toast.makeText(PlayVideoActivity.this, "视频无法播放", Toast.LENGTH_SHORT).show();
 		}
+		
 
 		video_introudce.setText(gymMode.getIntruduce());
 		music_iv.setOnClickListener(this);
@@ -293,7 +298,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 				case AudioManager.AUDIOFOCUS_GAIN:
 					// 鑾峰緱闊抽鐒︾偣
 					if (!videoView.isPlaying()) {
-						videoView.start();
+					//	videoView.start();
 						// playButton.setImageResource(R.drawable.mv_pause_button);
 					}
 					// 杩樺師闊抽噺
@@ -338,13 +343,13 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
 		// TODO Auto-generated method stub
-		if (videoView.isPlaying()) {
-			videoView.pause();
-			startBt.setImageResource(R.drawable.mv_start_button);
-		} else {
-			videoView.start();
-			startBt.setImageResource(R.drawable.mv_pause_button);
-		}
+//		if (videoView.isPlaying()) {
+//			videoView.pause();
+//			startBt.setImageResource(R.drawable.mv_start_button);
+//		} else {
+//		//	videoView.start();
+//		//	startBt.setImageResource(R.drawable.mv_pause_button);
+//		}
 		return false;
 	}
 
@@ -352,6 +357,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 		// TODO Auto-generated method stub
+		if(videoView.isPlaying()){
 		if (distanceX > 0) {
 			this.videoSeekBar.setProgress(this.videoSeekBar.getProgress() - 1);
 		} else {
@@ -359,6 +365,7 @@ public class PlayVideoActivity extends BaseFragmentActivity implements
 		}
 		videoView.seekTo((int) (this.videoSeekBar.getProgress() * 1.0
 				/ videoSeekBar.getMax() * videoView.getDuration()));
+		}
 		return false;
 	}
 
